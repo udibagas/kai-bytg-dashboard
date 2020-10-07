@@ -1,0 +1,33 @@
+@import '~bootstrap/scss/bootstrap';
+
+// @font-face {
+//   font-family: 'Proxima Nova';
+//   src: url('../fonts/proximanova-light-webfont.eot');
+//   src: url('../fonts/proximanova-light-webfont.eot?#iefix') format('embedded-opentype'),
+//     url('../fonts/proximanova-light-webfont.woff2') format('woff2'),
+//     url('../fonts/proximanova-light-webfont.woff') format('woff'),
+//     url('../fonts/proximanova-light-webfont.ttf') format('truetype');
+//   font-weight: 300;
+//   font-style: normal;
+// }
+
+// html {
+//   font-family: "Proxima Nova", sans-serif;
+// }
+
+body {
+  font-size: .9rem;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.el-table {
+  border-top: 2px solid #ddd;
+}
+
+.page-title {
+  font-size: 14px;
+  color: #999;
+}
