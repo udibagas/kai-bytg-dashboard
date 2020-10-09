@@ -21,7 +21,7 @@
 
 .caption {
 	position: absolute;
-	bottom: 200px;
+	top: 50px;
 	left: 50px;
 	border-left: 5px solid #fff;
 	background: rgba(0, 0, 0, 0.7);

@@ -3,15 +3,19 @@
 		<el-aside width="auto">
 			<el-menu
 				router
-				background-color="#1f48ab"
+				background-color="#2d005c"
 				active-text-color="#fff"
 				text-color="#bbb"
 				:collapse="collapse"
 				default-active="/"
 			>
-				<el-menu-item v-for="(menu, index) in menus" :key="index" :index="menu.path">
+				<el-menu-item
+					v-for="(menu, index) in menus"
+					:key="index"
+					:index="menu.path"
+				>
 					<i :class="menu.icon"></i>
-					<span slot="title">{{menu.label}}</span>
+					<span slot="title">{{ menu.label }}</span>
 				</el-menu-item>
 			</el-menu>
 		</el-aside>
@@ -19,7 +23,7 @@
 			<el-header class="d-flex">
 				<div>
 					<i
-						style="font-size:18px"
+						style="font-size: 18px"
 						class="mr-2"
 						:class="collapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'"
 						@click="collapse = !collapse"
@@ -33,12 +37,19 @@
 
 					<div class="text-center p-4">
 						<el-avatar :size="75" icon="el-icon-user-solid"></el-avatar>
-						<h5 class="mt-4 mb-4">{{$auth.user.name.toUpperCase()}}</h5>
-						<el-button icon="el-icon-edit" type="primary">Edit Profil</el-button>
-						<el-button icon="el-icon-d-arrow-right" type="danger" @click="logout">Keluar</el-button>
+						<h5 class="mt-4 mb-4">{{ $auth.user.name.toUpperCase() }}</h5>
+						<el-button icon="el-icon-edit" type="primary"
+							>Edit Profil</el-button
+						>
+						<el-button
+							icon="el-icon-d-arrow-right"
+							type="danger"
+							@click="logout"
+							>Keluar</el-button
+						>
 					</div>
 				</el-popover>
-				<div class="ml-2">{{$auth.user.name}}</div>
+				<div class="ml-2">{{ $auth.user.name }}</div>
 			</el-header>
 			<el-main>
 				<Nuxt />
