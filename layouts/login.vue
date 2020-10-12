@@ -2,7 +2,7 @@
 	<div class="d-flex">
 		<div class="bg flex-grow-1">
 			<div class="p-4 caption">
-				<h1>Sistem Monitoring Sarana Gerbong</h1>
+				<h2>Sistem Monitoring Sarana Gerbong</h2>
 				<h4>Balai Yasa Tegal</h4>
 			</div>
 		</div>
