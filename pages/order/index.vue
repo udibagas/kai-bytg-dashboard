@@ -10,6 +10,30 @@
 			</div>
 			<el-form inline @submit.native.prevent>
 				<el-form-item>
+					<div class="input-group" style="margin-top: 5px">
+						<div class="custom-file">
+							<input
+								type="file"
+								class="custom-file-input"
+								id="inputGroupFile04"
+								@change="readFile"
+							/>
+							<label class="custom-file-label" for="inputGroupFile04"
+								>Import File</label
+							>
+						</div>
+					</div>
+				</el-form-item>
+				<el-form-item>
+					<el-button
+						size="small"
+						type="primary"
+						icon="el-icon-download"
+						@click="exportOrder"
+						>EXPORT ORDER</el-button
+					>
+				</el-form-item>
+				<el-form-item>
 					<el-button
 						size="small"
 						type="primary"
@@ -20,7 +44,10 @@
 				</el-form-item>
 				<el-form-item>
 					<el-input
-						@change="getData"
+						@change="
+							pagination.current_page = 1;
+							getData();
+						"
 						size="small"
 						prefix-icon="el-icon-search"
 						v-model="keyword"
@@ -72,12 +99,7 @@
 				align-header="center"
 				align="center"
 			></el-table-column>
-			<el-table-column
-				label="Nomor Sarana"
-				min-width="120"
-				align-header="center"
-				align="center"
-			>
+			<el-table-column label="Nomor Sarana" min-width="120">
 				<template slot-scope="scope">
 					<router-link :to="`/order/${scope.row.id}`">
 						{{ scope.row.jenis_sarana }} {{ scope.row.nomor_sarana }}
@@ -174,22 +196,23 @@
 
 		<div class="d-flex mt-3">
 			<el-pagination
-				class="flex-grow-1"
 				background
+				class="flex-grow-1"
+				layout="total, sizes, prev, pager, next"
+				:current-page="pagination.current_page"
 				@current-change="
 					(p) => {
-						pagination.page = p;
+						pagination.current_page = p;
 						getData();
 					}
 				"
 				@size-change="
 					(s) => {
-						pagination.pageSize = s;
+						pagination.per_page = s;
 						getData();
 					}
 				"
-				layout="total, sizes, prev, pager, next"
-				:page-size="pagination.pageSize"
+				:page-size="pagination.per_page"
 				:page-sizes="[10, 25, 50, 100]"
 				:total="pagination.total"
 			></el-pagination>
@@ -211,6 +234,9 @@
 </template>
 
 <script>
+import XLSX from "xlsx";
+import exportFromJson from "export-from-json";
+
 export default {
 	data() {
 		return {
@@ -220,8 +246,8 @@ export default {
 			selectedData: {},
 			showForm: false,
 			pagination: {
-				page: 1,
-				pageSize: 10,
+				current_page: 1,
+				per_page: 10,
 				from: 0,
 				to: 0,
 				total: 0,
@@ -229,8 +255,72 @@ export default {
 		};
 	},
 	methods: {
+		readFile(oEvent) {
+			var oFile = oEvent.target.files[0];
+			var sFilename = oFile.name;
+
+			var reader = new FileReader();
+			var result = {};
+
+			reader.onload = (e) => {
+				var data = e.target.result;
+				data = new Uint8Array(data);
+				var workbook = XLSX.read(data, { type: "array" });
+				var result = {};
+				// see the result, caution: it works after reader event is done.
+				var res = XLSX.utils
+					.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], { header: 1 })
+					.filter((r) => !!r[0]); // cuma yg ada datanya
+
+				// remove header
+				res.splice(0, 1);
+
+				var dataToImport = res.map((r) => {
+					return {
+						jenis_sarana: r[1],
+						nomor_sarana: r[2],
+						dipo: r[3],
+						jenis_pekerjaan: r[5],
+						tanggal_masuk: r[6],
+						tanggal_keluar: r[7],
+						keterangan: r[9] || " ",
+					};
+				});
+
+				console.log("raw data: ", dataToImport.length);
+				this.importData(dataToImport);
+			};
+
+			reader.readAsArrayBuffer(oFile);
+		},
+		importData(dataToImport) {
+			this.loading = true;
+			this.$axios
+				.post("/api/order/import", { rows: dataToImport })
+				.then((r) => {
+					this.$message({
+						message: r.data.message,
+						type: "success",
+					});
+					this.pagination.current_page = 1;
+					this.getData();
+				})
+				.catch((e) => {
+					this.$message({
+						message: e.response.data.message,
+						type: "error",
+						duration: 10000,
+						showClose: true,
+					});
+				})
+				.finally(() => (this.loading = false));
+		},
 		getData() {
-			const params = { ...this.pagination, keyword: this.keyword };
+			const params = {
+				...this.pagination,
+				keyword: this.keyword,
+				page: this.pagination.current_page,
+			};
 			this.loading = true;
 			this.$axios
 				.get("/api/order", { params })
@@ -263,6 +353,23 @@ export default {
 			}
 
 			this.showForm = true;
+		},
+		exportOrder() {
+			this.$axios
+				.get("/api/order/export")
+				.then((r) => {
+					exportFromJson({
+						data: r.data,
+						fileName: "bytg-order",
+						exportType: "xls",
+					});
+				})
+				.catch((e) => {
+					this.$message({
+						message: e.response.data.message,
+						type: "error",
+					});
+				});
 		},
 	},
 	created() {

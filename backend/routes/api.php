@@ -31,6 +31,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::resource('jenisDetailPekerjaan', 'JenisDetailPekerjaanController')->only(['index', 'store', 'update', 'destroy']);
     Route::resource('jenisPekerjaan', 'JenisPekerjaanController')->only(['index', 'store', 'update', 'destroy']);
     Route::resource('jenisSarana', 'JenisSaranaController')->only(['index', 'store', 'update', 'destroy']);
+    Route::get('order/export', 'OrderController@export');
+    Route::post('order/import', 'OrderController@import');
     Route::resource('order', 'OrderController')->only(['index', 'show', 'store', 'update', 'destroy']);
     Route::resource('sarana', 'SaranaController')->only(['index', 'store', 'update', 'destroy']);
     Route::resource('user', 'UserController')->only(['index', 'show', 'store', 'update', 'destroy']);
