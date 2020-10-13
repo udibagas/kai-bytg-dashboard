@@ -25,7 +25,7 @@ class DipoRequest extends FormRequest
     {
         return [
             'nama' => 'required|max:255',
-            'keterangan' => 'max:255'
+            'kode' => 'max:255'
         ];
     }
 }

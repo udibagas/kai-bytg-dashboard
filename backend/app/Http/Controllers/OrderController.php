@@ -56,7 +56,6 @@ class OrderController extends Controller
      */
     public function store(OrderRequest $request)
     {
-        $dipo = Dipo::firstOrCreate(['id' => $request->dipo_id], ['nama' => $request->dipo_id]);
         $jalur = Jalur::firstOrCreate(['id' => $request->jalur_id], ['nama' => $request->jalur_id]);
 
         // dikhawatirkan bentrok dengan nomor
@@ -67,14 +66,13 @@ class OrderController extends Controller
             $sarana = Sarana::firstOrCreate(['nomor' => $request->sarana_id], [
                 'nomor' => $request->sarana_id,
                 'nomor_lama' => $request->nomor_lama,
-                'dipo_id' => $dipo->id,
+                'dipo_id' => $request->dipo_id,
                 'jenis_sarana_id' => $request->jenis_sarana_id
             ]);
         }
 
         $order = Order::create(array_merge($request->all(), [
             'user_id' => auth()->user()->id,
-            'dipo_id' => $dipo->id,
             'sarana_id' => $sarana->id,
             'jalur_id' => $jalur->id
         ]));
@@ -114,7 +112,6 @@ class OrderController extends Controller
      */
     public function update(OrderRequest $request, Order $order)
     {
-        $dipo = Dipo::firstOrCreate(['id' => $request->dipo_id], ['nama' => $request->dipo_id]);
         $jalur = Jalur::firstOrCreate(['id' => $request->jalur_id], ['nama' => $request->jalur_id]);
 
         // dikhawatirkan bentrok dengan nomor
@@ -125,13 +122,12 @@ class OrderController extends Controller
             $sarana = Sarana::firstOrCreate(['nomor' => $request->sarana_id], [
                 'nomor' => $request->sarana_id,
                 'nomor_lama' => $request->nomor_lama,
-                'dipo_id' => $dipo->id,
+                'dipo_id' => $request->dipo_id,
                 'jenis_sarana_id' => $request->jenis_sarana_id
             ]);
         }
 
         $order->update(array_merge($request->all(), [
-            'dipo_id' => $dipo->id,
             'sarana_id' => $sarana->id,
             'jalur_id' => $jalur->id
         ]));

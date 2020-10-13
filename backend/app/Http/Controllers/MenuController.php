@@ -34,11 +34,11 @@ class MenuController extends Controller
             //     'path' => '/bogie',
             //     'icon' => 'el-icon-truck'
             // ],
-            // [
-            //     'label' => 'Dipo',
-            //     'path' => '/dipo',
-            //     'icon' => 'el-icon-school'
-            // ],
+            [
+                'label' => 'Dipo',
+                'path' => '/dipo',
+                'icon' => 'el-icon-school'
+            ],
             // [
             //     'label' => 'Stasiun',
             //     'path' => '/stasiun',

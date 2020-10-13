@@ -27,8 +27,8 @@
 		</div>
 		<el-table :data="tableData" height="calc(100vh - 165px)" stripe v-loading="loading">
 			<el-table-column type="index" label="#"></el-table-column>
+			<el-table-column prop="kode" label="Kode"></el-table-column>
 			<el-table-column prop="nama" label="Nama"></el-table-column>
-			<el-table-column prop="keterangan" label="Keterangan"></el-table-column>
 			<el-table-column fixed="right" width="40px" align="center" header-align="center">
 				<template slot="header">
 					<el-button type="text" @click="() => { keyword = ''; getData(); }" icon="el-icon-refresh"></el-button>

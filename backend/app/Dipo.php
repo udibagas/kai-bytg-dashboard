@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Dipo extends Model
 {
-    protected $fillable = ['nama', 'keterangan'];
+    protected $fillable = ['nama', 'kode'];
 }
