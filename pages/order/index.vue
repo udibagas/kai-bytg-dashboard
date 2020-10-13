@@ -67,7 +67,7 @@
 			</el-table-column>
 			<el-table-column
 				prop="nomor"
-				label="Nomor"
+				label="Nomor Order"
 				min-width="120"
 				align-header="center"
 				align="center"
@@ -79,19 +79,19 @@
 				align="center"
 			>
 				<template slot-scope="scope">
-					<router-link :to="`/order/${scope.row.id}`">{{
-						scope.row.nomor_sarana
-					}}</router-link>
+					<router-link :to="`/order/${scope.row.id}`">
+						{{ scope.row.jenis_sarana }} {{ scope.row.nomor_sarana }}
+					</router-link>
 				</template>
 			</el-table-column>
 
-			<el-table-column
+			<!-- <el-table-column
 				prop="jenis_sarana"
 				label="Jenis Sarana"
 				min-width="120"
 				align-header="center"
 				align="center"
-			></el-table-column>
+			></el-table-column> -->
 			<el-table-column
 				prop="jenis_pekerjaan"
 				label="Jenis Pekerjaan"
