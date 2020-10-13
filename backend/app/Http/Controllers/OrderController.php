@@ -258,7 +258,7 @@ class OrderController extends Controller
             return [
                 'NO' => $index + 1,
                 'Jenis Sarana' => $item->jenisSarana->kode,
-                'Nomor Sarana' => $item->sarana->nomor,
+                'Nomor Sarana' => $item->sarana ? $item->sarana->nomor : '',
                 'Dipo' => $item->dipo->kode,
                 'Pekerjaan' => $item->jenisPekerjaan->kode,
                 'Masuk' => $item->tanggal_masuk,
