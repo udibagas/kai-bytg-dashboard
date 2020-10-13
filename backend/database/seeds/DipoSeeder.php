@@ -2,6 +2,7 @@
 
 use App\Dipo;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DipoSeeder extends Seeder
 {
@@ -12,6 +13,8 @@ class DipoSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('dipos')->truncate();
+
         Dipo::insert([
             ['kode' => 'RK', 'nama' => 'Rangkas'],
             ['kode' => 'MA', 'nama' => 'Maos'],
