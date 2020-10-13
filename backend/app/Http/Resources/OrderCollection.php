@@ -17,9 +17,9 @@ class OrderCollection extends ResourceCollection
         return [
             'data' => $this->collection->map(function ($item) {
                 return array_merge($item->toArray(), [
-                    'nomor_sarana' => $item->sarana->nomor,
+                    'nomor_sarana' => $item->sarana ? $item->sarana->nomor : '',
                     'jenis_pekerjaan' => $item->jenisPekerjaan->kode,
-                    'dipo' => $item->dipo->nama,
+                    'dipo' => $item->dipo->kode,
                     'jenis_sarana' => $item->jenisSarana->kode,
                     'jalur' => $item->jalur->nama
                 ]);
