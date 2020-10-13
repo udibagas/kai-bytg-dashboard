@@ -30,6 +30,7 @@
 						type="primary"
 						icon="el-icon-download"
 						@click="exportOrder"
+						:loading="exportInProgress"
 						>EXPORT ORDER</el-button
 					>
 				</el-form-item>
@@ -245,6 +246,7 @@ export default {
 			keyword: "",
 			selectedData: {},
 			showForm: false,
+			exportInProgress: false,
 			pagination: {
 				current_page: 1,
 				per_page: 10,
@@ -355,6 +357,7 @@ export default {
 			this.showForm = true;
 		},
 		exportOrder() {
+			this.exportInProgress = true;
 			this.$axios
 				.get("/api/order/export")
 				.then((r) => {
@@ -369,7 +372,8 @@ export default {
 						message: e.response.data.message,
 						type: "error",
 					});
-				});
+				})
+				.finally(() => (this.exportInProgress = false));
 		},
 	},
 	created() {
