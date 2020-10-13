@@ -19,7 +19,7 @@ class OrderCollection extends ResourceCollection
                 return array_merge($item->toArray(), [
                     'nomor_sarana' => $item->sarana ? $item->sarana->nomor : '',
                     'jenis_pekerjaan' => $item->jenisPekerjaan->kode,
-                    'dipo' => $item->dipo->kode,
+                    'dipo' => $item->dipo ? $item->dipo->kode : '',
                     'jenis_sarana' => $item->jenisSarana->kode,
                     'jalur' => $item->jalur->nama
                 ]);
