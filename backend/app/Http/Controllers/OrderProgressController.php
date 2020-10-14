@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderProgressRequest;
 use App\JenisDetailPekerjaan;
+use App\Order;
 use App\OrderProgress;
 use Illuminate\Http\Request;
 
@@ -49,7 +50,6 @@ class OrderProgressController extends Controller
         ]);
 
         $orderProgress = OrderProgress::create($data);
-
         $order = $orderProgress->order;
 
         $order->orderDetail()
@@ -58,10 +58,13 @@ class OrderProgressController extends Controller
                 $data
             );
 
+        $prosentase = $order->orderDetail()->pluck('prosentase_pekerjaan')->avg();
+
         $order->update([
-            'status' => $request->status,
+            // 'status' => $request->status,
             'tanggal_keluar' => $request->tanggal_keluar,
-            'prosentase_pekerjaan' => $order->orderDetail()->pluck('prosentase_pekerjaan')->avg()
+            'prosentase_pekerjaan' => $prosentase,
+            'status' => $prosentase < 100 ? Order::STATUS_DALAM_PENGERJAAN : Order::STATUS_SELESAI
         ]);
 
         return [
