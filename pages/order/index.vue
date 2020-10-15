@@ -75,7 +75,11 @@
 			"
 			:default-sort="{ prop: sort, order: order }"
 		>
-			<el-table-column type="index" label="#"></el-table-column>
+			<el-table-column
+				type="index"
+				label="#"
+				:index="pagination.from"
+			></el-table-column>
 			<el-table-column
 				label="Status"
 				min-width="160"
