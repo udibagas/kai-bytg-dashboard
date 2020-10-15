@@ -93,20 +93,21 @@
 			<el-pagination
 				class="flex-grow-1"
 				background
+				:current-page="pagination.current_page"
 				@current-change="
 					(p) => {
-						pagination.page = p;
+						pagination.current_page = p;
 						getData();
 					}
 				"
 				@size-change="
 					(s) => {
-						pagination.pageSize = s;
+						pagination.per_page = s;
 						getData();
 					}
 				"
 				layout="total, sizes, prev, pager, next"
-				:page-size="pagination.pageSize"
+				:page-size="pagination.per_page"
 				:page-sizes="[10, 25, 50, 100]"
 				:total="pagination.total"
 			></el-pagination>
@@ -137,8 +138,8 @@ export default {
 			selectedData: {},
 			showForm: false,
 			pagination: {
-				page: 1,
-				pageSize: 10,
+				current_page: 1,
+				per_page: 10,
 				from: 0,
 				to: 0,
 				total: 0,
@@ -147,7 +148,12 @@ export default {
 	},
 	methods: {
 		getData() {
-			const params = { ...this.pagination, keyword: this.keyword };
+			const params = {
+				...this.pagination,
+				keyword: this.keyword,
+				page: this.pagination.current_page,
+			};
+
 			this.loading = true;
 			this.$axios
 				.get("/api/sarana", { params })

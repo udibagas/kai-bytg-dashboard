@@ -21,7 +21,7 @@ class SaranaController extends Controller
                 $q->where('nomor', 'LIKE', "%{$request->keyword}%")
                     ->orWhere('nomor_lama', 'LIKE', "%{$request->keyword}%");
             });
-        })->orderBy('nomor', 'asc')->paginate($request->pageSize);
+        })->orderBy('nomor', 'asc')->paginate($request->per_page);
 
         return new SaranaCollection($resource);
     }

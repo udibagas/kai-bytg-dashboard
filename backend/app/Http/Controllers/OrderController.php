@@ -47,7 +47,7 @@ class OrderController extends Controller
             $q->whereYear('tanggal_masuk', $request->tahun);
         })->when($request->bulan, function ($q) use ($request) {
             $q->whereMonth('tanggal_masuk', $request->bulan);
-        })->orderBy($request->sort ?: 'tanggal_masuk', $request->order == 'ascending' ? 'asc' : 'desc')->paginate($request->pageSize);
+        })->orderBy($request->sort ?: 'tanggal_masuk', $request->order == 'ascending' ? 'asc' : 'desc')->paginate($request->per_page);
 
         return new OrderCollection($resource);
     }
