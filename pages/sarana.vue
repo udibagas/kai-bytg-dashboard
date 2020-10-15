@@ -41,7 +41,11 @@
 			stripe
 			v-loading="loading"
 		>
-			<el-table-column type="index" label="#"></el-table-column>
+			<el-table-column
+				type="index"
+				label="#"
+				:index="pagination.from"
+			></el-table-column>
 			<el-table-column prop="nomor" label="Nomor"></el-table-column>
 			<el-table-column prop="nomor_lama" label="Nomor Lama"></el-table-column>
 			<el-table-column
