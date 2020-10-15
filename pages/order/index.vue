@@ -164,7 +164,7 @@
 				sortable="custom"
 			>
 				<template slot-scope="scope">
-					{{ readableDate(scope.row.tanggal_masuk) }}
+					{{ readableDate(scope.row.tanggal_keluar) }}
 				</template>
 			</el-table-column>
 			<el-table-column
