@@ -347,8 +347,8 @@ export default {
 						dipo: r[3],
 						jenis_pekerjaan: r[5],
 						tanggal_masuk: r[6],
-						tanggal_keluar: r[7],
-						prosentase_pekerjaan: r[9],
+						tanggal_keluar: r[7] || null,
+						prosentase_pekerjaan: r[9] || 0,
 						keterangan: r[10] || " ",
 					};
 				});

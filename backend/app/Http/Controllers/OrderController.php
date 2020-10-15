@@ -139,7 +139,7 @@ class OrderController extends Controller
                     'dipo_id' => $dipo->id,
                     'jenis_pekerjaan_id' => $jenisPekerjaan->id,
                     'tanggal_masuk' => $this->parseExcelDate($row['tanggal_masuk']),
-                    'tanggal_keluar' => isset($row['tanggal_keluar']) ? $this->parseExcelDate($row['tanggal_keluar']) : null,
+                    'tanggal_keluar' => $this->parseExcelDate($row['tanggal_keluar']),
                     'keterangan' => $row['keterangan'],
                     'prosentase_pekerjaan' => $row['prosentase_pekerjaan'] * 100,
                     'status' => $row['prosentase_pekerjaan'] * 100 < 100 ? Order::STATUS_DALAM_PENGERJAAN : Order::STATUS_SELESAI,
@@ -155,6 +155,10 @@ class OrderController extends Controller
 
     protected function parseExcelDate($date)
     {
+        if ($date === null) {
+            return null;
+        }
+
         if (!is_numeric($date)) {
             return date('Y-m-d', strtotime($date));
         }
