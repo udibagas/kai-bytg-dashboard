@@ -27,7 +27,7 @@
 				v-for="(report, index) in laporanBulanan"
 				:key="index"
 			>
-				<MyChart :data.sync="report.data" :title="report.jenis_sarana" />
+				<MyChart :data="report.data" :title="report.jenis_sarana" />
 			</div>
 		</div>
 	</div>

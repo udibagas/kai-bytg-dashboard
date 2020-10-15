@@ -6,6 +6,11 @@
 import { Chart } from "highcharts-vue";
 export default {
 	props: ["data", "title"],
+	watch: {
+		data(v) {
+			this.chartOptions.series[0].data = v;
+		},
+	},
 	components: { Chart },
 	data() {
 		return {
