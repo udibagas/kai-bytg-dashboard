@@ -111,7 +111,7 @@
 					}
 				"
 				layout="total, sizes, prev, pager, next"
-				:page-size="pagination.per_page"
+				:page-size="Number(pagination.per_page)"
 				:page-sizes="[10, 25, 50, 100]"
 				:total="pagination.total"
 			></el-pagination>
