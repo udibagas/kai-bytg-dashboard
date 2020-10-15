@@ -56,9 +56,12 @@ export default {
 					this.$router.push(this.$route.query.redirect || "/");
 				})
 				.catch((e) => {
-					if (e.response.status == 422 || e.response.status == 429) {
+					if (e.response.status == 422) {
+						const message = e.response.data.errors.email
+							? e.response.data.errors.email[0]
+							: e.response.data.errors.password[0];
 						this.$message({
-							message: e.response.data.errors.password[0],
+							message: message,
 							type: "error",
 						});
 					}
