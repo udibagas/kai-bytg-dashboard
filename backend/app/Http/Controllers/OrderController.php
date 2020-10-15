@@ -47,7 +47,7 @@ class OrderController extends Controller
             $q->whereYear('tanggal_masuk', $request->tahun);
         })->when($request->bulan, function ($q) use ($request) {
             $q->whereMonth('tanggal_masuk', $request->bulan);
-        })->orderBy('updated_at', 'desc')->paginate($request->pageSize);
+        })->orderBy($request->sort ?: 'tanggal_masuk', $request->order == 'ascending' ? 'asc' : 'desc')->paginate($request->pageSize);
 
         return new OrderCollection($resource);
     }
@@ -126,17 +126,25 @@ class OrderController extends Controller
                 ]);
             }
 
-            Order::create([
-                'nomor' => Str::random(10),
-                'sarana_id' => $sarana->id,
-                'jenis_sarana_id' => $jenisSarana->id,
-                'dipo_id' => $dipo->id,
-                'jenis_pekerjaan_id' => $jenisPekerjaan->id,
-                'tanggal_masuk' => $this->parseExcelDate($row['tanggal_masuk']),
-                'tanggal_keluar' => $this->parseExcelDate($row['tanggal_keluar']),
-                'keterangan' => $row['keterangan'],
-                'user_id' => auth()->user()->id
-            ]);
+            Order::updateOrCreate(
+                [
+                    'sarana_id' => $sarana->id,
+                    'jenis_pekerjaan_id' => $jenisPekerjaan->id
+                ],
+                [
+                    'nomor' => '-',
+                    'sarana_id' => $sarana->id,
+                    'jenis_sarana_id' => $jenisSarana->id,
+                    'dipo_id' => $dipo->id,
+                    'jenis_pekerjaan_id' => $jenisPekerjaan->id,
+                    'tanggal_masuk' => $this->parseExcelDate($row['tanggal_masuk']),
+                    'tanggal_keluar' => $this->parseExcelDate($row['tanggal_keluar']),
+                    'keterangan' => $row['keterangan'],
+                    'prosentase_pekerjaan' => $row['prosentase_pekerjaan'] * 100,
+                    'status' => $row['prosentase_pekerjaan'] * 100 < 100 ? Order::STATUS_DALAM_PENGERJAAN : Order::STATUS_SELESAI,
+                    'user_id' => auth()->user()->id
+                ]
+            );
         }
 
         DB::commit();

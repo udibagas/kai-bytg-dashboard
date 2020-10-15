@@ -18,7 +18,7 @@ export const mutations = {
     state.filterDipo = data.map(l => {
       return {
         value: l.id,
-        text: l.nama
+        text: l.kode
       }
     })
   },
@@ -38,7 +38,7 @@ export const mutations = {
     state.filterJenisSarana = data.map(l => {
       return {
         value: l.id,
-        text: l.nama
+        text: l.kode
       }
     })
   },
@@ -48,7 +48,7 @@ export const mutations = {
     state.filterJenisPekerjaan = data.map(l => {
       return {
         value: l.id,
-        text: l.nama
+        text: l.kode
       }
     })
   },

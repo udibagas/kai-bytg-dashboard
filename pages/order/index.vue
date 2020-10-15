@@ -15,10 +15,10 @@
 							<input
 								type="file"
 								class="custom-file-input"
-								id="inputGroupFile04"
+								id="input-file"
 								@change="readFile"
 							/>
-							<label class="custom-file-label" for="inputGroupFile04"
+							<label class="custom-file-label" for="input-file"
 								>Import File</label
 							>
 						</div>
@@ -31,16 +31,16 @@
 						icon="el-icon-download"
 						@click="exportOrder"
 						:loading="exportInProgress"
-						>EXPORT ORDER</el-button
+						>EXPORT</el-button
 					>
 				</el-form-item>
 				<el-form-item>
 					<el-button
 						size="small"
 						type="primary"
-						icon="el-icon-plus"
+						icon="el-icon-s-order"
 						@click="openForm(null)"
-						>TAMBAH ORDER</el-button
+						>INPUT</el-button
 					>
 				</el-form-item>
 				<el-form-item>
@@ -58,11 +58,22 @@
 				</el-form-item>
 			</el-form>
 		</div>
+
 		<el-table
 			:data="tableData"
 			height="calc(100vh - 215px)"
 			stripe
 			v-loading="loading"
+			@sort-change="sortChange"
+			@filter-change="
+				(f) => {
+					let c = Object.keys(f)[0];
+					filters[c] = Object.values(f[c]);
+					pagination.current_page = 1;
+					getData();
+				}
+			"
+			:default-sort="{ prop: sort, order: order }"
 		>
 			<el-table-column type="index" label="#"></el-table-column>
 			<el-table-column
@@ -70,6 +81,7 @@
 				min-width="160"
 				align-header="center"
 				align="center"
+				sortable="custom"
 			>
 				<template slot-scope="scope">
 					<el-tag
@@ -86,6 +98,7 @@
 				min-width="150"
 				align-header="center"
 				align="center"
+				sortable="custom"
 			>
 				<template slot-scope="scope">
 					<el-progress
@@ -96,11 +109,17 @@
 			<el-table-column
 				prop="nomor"
 				label="Nomor Order"
-				min-width="120"
+				min-width="140"
 				align-header="center"
 				align="center"
+				sortable="custom"
 			></el-table-column>
-			<el-table-column label="Nomor Sarana" min-width="120">
+			<el-table-column
+				label="Nomor Sarana"
+				min-width="140"
+				column-key="jenis_sarana_id"
+				:filters="filterJenisSarana"
+			>
 				<template slot-scope="scope">
 					<router-link :to="`/order/${scope.row.id}`">
 						{{ scope.row.jenis_sarana }} {{ scope.row.nomor_sarana }}
@@ -117,10 +136,12 @@
 			></el-table-column> -->
 			<el-table-column
 				prop="jenis_pekerjaan"
-				label="Jenis Pekerjaan"
-				min-width="130"
+				label="Pekerjaan"
+				min-width="100"
 				align-header="center"
 				align="center"
+				column-key="jenis_pekerjaan_id"
+				:filters="filterJenisPekerjaan"
 			></el-table-column>
 			<el-table-column
 				prop="tanggal_masuk"
@@ -128,20 +149,32 @@
 				min-width="150"
 				align-header="center"
 				align="center"
-			></el-table-column>
+				sortable="custom"
+			>
+				<template slot-scope="scope">
+					{{ readableDate(scope.row.tanggal_masuk) }}
+				</template>
+			</el-table-column>
 			<el-table-column
 				prop="tanggal_keluar"
 				label="Tanggal Keluar"
 				min-width="150"
 				align-header="center"
 				align="center"
-			></el-table-column>
+				sortable="custom"
+			>
+				<template slot-scope="scope">
+					{{ readableDate(scope.row.tanggal_masuk) }}
+				</template>
+			</el-table-column>
 			<el-table-column
 				prop="dipo"
 				label="Dipo"
 				min-width="100"
 				align-header="center"
 				align="center"
+				column-key="dipo_id"
+				:filters="filterDipo"
 			></el-table-column>
 			<el-table-column
 				prop="jalur"
@@ -149,6 +182,8 @@
 				min-width="100"
 				align-header="center"
 				align="center"
+				column-key="jalur_id"
+				:filters="filterJalur"
 			></el-table-column>
 			<el-table-column
 				prop="keterangan"
@@ -237,6 +272,8 @@
 <script>
 import XLSX from "xlsx";
 import exportFromJson from "export-from-json";
+import moment from "moment";
+import { mapState } from "vuex";
 
 export default {
 	data() {
@@ -247,6 +284,9 @@ export default {
 			selectedData: {},
 			showForm: false,
 			exportInProgress: false,
+			sort: "tanggal_masuk",
+			order: "descending",
+			filters: {},
 			pagination: {
 				current_page: 1,
 				per_page: 10,
@@ -256,7 +296,26 @@ export default {
 			},
 		};
 	},
+	computed: {
+		...mapState([
+			"filterJenisPekerjaan",
+			"filterJenisSarana",
+			"filterDipo",
+			"filterJalur",
+		]),
+	},
 	methods: {
+		readableDate(date) {
+			if (!date) return null;
+			return moment(date).format("DD-MMM-YYYY");
+		},
+		sortChange(c) {
+			if (c.prop != this.sort || c.order != this.order) {
+				this.sort = c.prop;
+				this.order = c.order;
+				this.getData();
+			}
+		},
 		readFile(oEvent) {
 			var oFile = oEvent.target.files[0];
 			var sFilename = oFile.name;
@@ -285,7 +344,8 @@ export default {
 						jenis_pekerjaan: r[5],
 						tanggal_masuk: r[6],
 						tanggal_keluar: r[7],
-						keterangan: r[9] || " ",
+						prosentase_pekerjaan: r[9],
+						keterangan: r[10] || " ",
 					};
 				});
 
@@ -315,14 +375,21 @@ export default {
 						showClose: true,
 					});
 				})
-				.finally(() => (this.loading = false));
+				.finally(() => {
+					this.loading = false;
+					document.getElementById("input-file").value = "";
+				});
 		},
 		getData() {
 			const params = {
 				...this.pagination,
+				...this.filters,
 				keyword: this.keyword,
 				page: this.pagination.current_page,
+				sort: this.sort,
+				order: this.order,
 			};
+
 			this.loading = true;
 			this.$axios
 				.get("/api/order", { params })
@@ -376,7 +443,7 @@ export default {
 				.finally(() => (this.exportInProgress = false));
 		},
 	},
-	created() {
+	mounted() {
 		this.getData();
 	},
 };
