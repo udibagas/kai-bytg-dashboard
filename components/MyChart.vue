@@ -8,7 +8,7 @@ export default {
 	props: ["data", "title"],
 	watch: {
 		data(v) {
-			this.chartOptions.series[0].data = v;
+			this.chartOptions.series[0].data = v.filter((d) => d.y > 0);
 		},
 	},
 	components: { Chart },

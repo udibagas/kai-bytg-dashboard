@@ -31,14 +31,13 @@ class ReportController extends Controller
 
     public function tahunan(Request $request)
     {
-        $data = DB::select("SELECT COUNT(o.id) AS realisasi,
-                (SELECT SUM(target) FROM program_kerjas WHERE tahun = ?) AS target
-            FROM orders o
-            WHERE YEAR(o.tanggal_masuk) = ? AND o.status = ?", [$request->tahun, $request->tahun, Order::STATUS_SELESAI]);
+        $request->validate(['tahun' => 'required']);
 
-        return array_map(function ($item) {
-            $item->kurang = $item->target - $item->realisasi;
-            return $item;
-        }, $data);
+        return [
+            'terdaftar' => Order::where('status', Order::STATUS_TERDAFTAR)->whereYear('tanggal_masuk', $request->tahun)->count(),
+            'dalam_pengerjaan' => Order::where('status', Order::STATUS_DALAM_PENGERJAAN)->whereYear('tanggal_masuk', $request->tahun)->count(),
+            'selesai' => Order::where('status', Order::STATUS_SELESAI)->whereYear('tanggal_masuk', $request->tahun)->count(),
+            'target' => ProgramKerja::where('tahun', $request->tahun)->pluck('target')->sum()
+        ];
     }
 }
