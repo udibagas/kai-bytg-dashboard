@@ -29,6 +29,12 @@
 			<el-carousel-item>
 				<MyChart :data="tahunan.data" :title="`TOTAL TAHUN ${tahun}`" />
 			</el-carousel-item>
+			<el-carousel-item
+				v-for="(jp, i) in listJenisPekerjaan"
+				:key="`table${i}`"
+			>
+				<OrderTable :jp="jp" :bulan="bulan" :tahun="tahun" />
+			</el-carousel-item>
 		</el-carousel>
 	</el-dialog>
 </template>
@@ -39,10 +45,13 @@ import { mapState } from "vuex";
 export default {
 	props: ["show", "bulanan", "total", "tahunan", "bulan", "tahun", "table"],
 	computed: {
-		...mapState(["listBulan"]),
+		...mapState(["listBulan", "listJenisPekerjaan"]),
+	},
+	methods: {
+		readableDate(date) {
+			if (!date) return null;
+			return moment(date).format("DD-MMM-YYYY");
+		},
 	},
 };
 </script>
-
-<style>
-</style>

@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div style="height: calc(100vh - 200px)">
 		<el-form inline>
 			<el-form-item label="Tahun">
 				<el-input type="number" v-model="tahun" placeholder="Tahun"></el-input>
@@ -28,13 +28,34 @@
 		<div class="d-flex flex-wrap justify-content-center align-items-center">
 			<div
 				class="border flex-grow-1 p-3"
-				style="width: 300px"
+				style="width: 350px"
 				v-for="(report, index) in laporanBulanan"
 				:key="index"
 			>
 				<MyChart :data="report.data" :title="report.jenis_sarana" />
 			</div>
+			<div class="border flex-grow-1 p-3" style="width: 300px">
+				<MyChart
+					:data="totalBulanan.data"
+					:title="`TOTAL BULAN ${listBulan[bulan].toUpperCase()}`"
+				/>
+			</div>
+			<div class="border flex-grow-1 p-3" style="width: 300px">
+				<MyChart :data="laporanTahunan.data" :title="`TOTAL TAHUN ${tahun}`" />
+			</div>
 		</div>
+
+		<el-card class="mt-3">
+			<el-tabs>
+				<el-tab-pane
+					v-for="(jp, i) in listJenisPekerjaan"
+					:key="`table${i}`"
+					:label="`${jp.kode} - ${jp.nama}`"
+				>
+					<OrderTable :jp="jp" :bulan="bulan" :tahun="tahun" />
+				</el-tab-pane>
+			</el-tabs>
+		</el-card>
 
 		<SlideShow
 			:show="showSlideShow"
@@ -202,25 +223,9 @@ export default {
 					].filter((d) => d.y > 0);
 				});
 		},
-		getOrderList(jenis_pekerjaan_id) {
-			const params = {
-				jenis_pekerjaan_id: [jenis_pekerjaan_id],
-				tahun: this.tahun,
-				bulan: this.bulan,
-				pageSize: 1000,
-				page: 1,
-			};
-
-			this.$axios.get("/api/order", { params }).then((r) => {
-				this.tableData[jenis_pekerjaan_id] = r.data.data;
-			});
-		},
 		getData() {
 			this.bulanan();
 			this.tahunan();
-			this.listJenisPekerjaan.forEach((jp) => {
-				this.getOrderList(jp.id);
-			});
 		},
 		readableDate(date) {
 			if (!date) return null;
