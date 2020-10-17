@@ -37,6 +37,14 @@ import moment from "moment";
 import { mapState } from "vuex";
 export default {
 	props: ["jp", "tahun", "bulan"],
+	watch: {
+		bulan(v) {
+			this.getData();
+		},
+		tahun(v) {
+			this.getData();
+		},
+	},
 	data() {
 		return {
 			tableData: [],
@@ -55,6 +63,8 @@ export default {
 				bulan: this.bulan,
 				per_page: 10000,
 				page: 1,
+				sort: "updated_at",
+				order: "descending",
 			};
 
 			this.$axios

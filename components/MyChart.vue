@@ -10,6 +10,9 @@ export default {
 		data(v) {
 			this.chartOptions.series[0].data = v.filter((d) => d.y > 0);
 		},
+		title(v) {
+			this.chartOptions.title.text = v;
+		},
 	},
 	components: { Chart },
 	data() {

@@ -39,7 +39,11 @@ export default {
 	layout: "login",
 	data() {
 		return {
-			loginForm: {},
+			loginForm: {
+				email: "",
+				password: "",
+				remember: true,
+			},
 			base: process.env.ROUTER_BASE || "/",
 		};
 	},

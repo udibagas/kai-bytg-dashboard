@@ -64,7 +64,6 @@
 			:total="totalBulanan"
 			:bulan="bulan"
 			:tahun="tahun"
-			:table="tableData"
 			@close="showSlideShow = false"
 		/>
 	</div>
@@ -104,30 +103,7 @@ export default {
 				terdaftar,
 				dalam_pengerjaan,
 				selesai,
-				data: [
-					{
-						name: "Terdaftar",
-						y: terdaftar,
-						color: "orange",
-					},
-					{
-						name: "Dalam Pengerjaan",
-						y: dalam_pengerjaan,
-						color: "blue",
-					},
-					{
-						name: "Selesai",
-						y: selesai,
-						sliced: true,
-						selected: true,
-						color: "green",
-					},
-					{
-						name: "Belum Masuk",
-						y: belum_masuk,
-						color: "gray",
-					},
-				].filter((d) => d.y > 0),
+				data: this.parseData({ target, terdaftar, dalam_pengerjaan, selesai }),
 			};
 		},
 		...mapState(["listJenisPekerjaan", "listBulan"]),
@@ -144,8 +120,6 @@ export default {
 			},
 			bulan: new Date().getMonth() + 1,
 			tahun: new Date().getFullYear(),
-			jenisSarana: [],
-			tableData: [],
 		};
 	},
 	methods: {
@@ -156,31 +130,7 @@ export default {
 				})
 				.then((r) => {
 					this.laporanBulanan = r.data.map((d) => {
-						d.data = [
-							{
-								name: "Terdaftar",
-								y: d.terdaftar,
-								color: "orange",
-							},
-							{
-								name: "Dalam Pengerjaan",
-								y: d.dalam_pengerjaan,
-								color: "blue",
-							},
-							{
-								name: "Selesai",
-								y: d.selesai,
-								sliced: true,
-								selected: true,
-								color: "green",
-							},
-							{
-								name: "Belum Masuk",
-								y: d.belum_masuk,
-								color: "gray",
-							},
-						].filter((d) => d.y > 0);
-
+						d.data = this.parseData(d);
 						return d;
 					});
 				});
@@ -192,36 +142,39 @@ export default {
 				})
 				.then((r) => {
 					this.laporanTahunan = r.data;
-					const belum_masuk =
-						r.data.target -
-						r.data.terdaftar -
-						r.data.dalam_pengerjaan -
-						r.data.selesai;
-					this.laporanTahunan.data = [
-						{
-							name: "Terdaftar",
-							y: r.data.terdaftar,
-							color: "orange",
-						},
-						{
-							name: "Dalam Pengerjaan",
-							y: r.data.dalam_pengerjaan,
-							color: "blue",
-						},
-						{
-							name: "Selesai",
-							y: r.data.selesai,
-							sliced: true,
-							selected: true,
-							color: "green",
-						},
-						{
-							name: "Belum Masuk",
-							y: belum_masuk,
-							color: "gray",
-						},
-					].filter((d) => d.y > 0);
+					this.laporanTahunan.data = this.parseData(r.data);
 				});
+		},
+		parseData(d) {
+			return [
+				{
+					name: "Terdaftar",
+					y: d.terdaftar,
+					color: "orange",
+				},
+				{
+					name: "Dalam Pengerjaan",
+					y: d.dalam_pengerjaan,
+					color: "blue",
+				},
+				{
+					name: "Selesai",
+					y: d.selesai,
+					sliced: true,
+					selected: true,
+					color: "green",
+				},
+				{
+					name: "Belum Masuk",
+					y: d.target - d.dalam_pengerjaan - d.selesai - d.terdaftar,
+					color: "gray",
+				},
+				// {
+				// 	name: "Lebih",
+				// 	y: d.selesai - d.target,
+				// 	color: "red",
+				// },
+			].filter((d) => d.y > 0);
 		},
 		getData() {
 			this.bulanan();

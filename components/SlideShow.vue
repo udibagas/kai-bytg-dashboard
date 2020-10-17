@@ -16,6 +16,7 @@
 			height="calc(100vh - 200px)"
 			indicator-position="outside"
 			trigger="click"
+			:interval="30000"
 		>
 			<el-carousel-item v-for="(r, index) in bulanan" :key="index">
 				<MyChart :data="r.data" :title="r.jenis_sarana" />
@@ -43,7 +44,7 @@
 import { mapState } from "vuex";
 
 export default {
-	props: ["show", "bulanan", "total", "tahunan", "bulan", "tahun", "table"],
+	props: ["show", "bulanan", "total", "tahunan", "bulan", "tahun"],
 	computed: {
 		...mapState(["listBulan", "listJenisPekerjaan"]),
 	},
