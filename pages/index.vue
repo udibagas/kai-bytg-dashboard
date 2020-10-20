@@ -1,49 +1,47 @@
 <template>
 	<div style="height: calc(100vh - 200px)">
-		<el-form inline>
-			<el-form-item label="Tahun">
-				<el-input type="number" v-model="tahun" placeholder="Tahun"></el-input>
-			</el-form-item>
-			<el-form-item label="Bulan">
-				<el-select v-model="bulan" placeholder="Bulan">
-					<el-option
-						v-for="(m, i) in listBulan"
-						v-show="i > 0"
-						:key="i"
-						:value="i"
-						:label="m"
-					></el-option>
-				</el-select>
-			</el-form-item>
-			<el-form-item>
-				<el-button type="primary" @click="getData()">Tampilkan Data</el-button>
-			</el-form-item>
-			<el-form-item>
-				<el-button type="primary" @click="showSlideShow = true"
-					>Tampilkan Slide</el-button
-				>
-			</el-form-item>
-		</el-form>
+		<el-card class="mb-3">
+			<el-form inline>
+				<el-form-item class="mb-0">
+					<el-input
+						type="number"
+						v-model="tahun"
+						placeholder="Tahun"
+					></el-input>
+				</el-form-item>
+				<el-form-item class="mb-0">
+					<el-select v-model="bulan" placeholder="Bulan">
+						<el-option
+							v-for="(m, i) in listBulan"
+							v-show="i > 0"
+							:key="i"
+							:value="i"
+							:label="m"
+						></el-option>
+					</el-select>
+				</el-form-item>
+				<el-form-item class="mb-0">
+					<el-button type="primary" @click="showSlideShow = true"
+						>Tampilkan Slide</el-button
+					>
+				</el-form-item>
+			</el-form>
+		</el-card>
 
-		<div class="d-flex flex-wrap justify-content-center align-items-center">
-			<div
-				class="border flex-grow-1 p-3"
-				style="width: 350px"
-				v-for="(report, index) in laporanBulanan"
-				:key="index"
-			>
-				<MyChart :data="report.data" :title="report.jenis_sarana" />
-			</div>
-			<div class="border flex-grow-1 p-3" style="width: 300px">
-				<MyChart
-					:data="totalBulanan.data"
-					:title="`TOTAL BULAN ${listBulan[bulan].toUpperCase()}`"
-				/>
-			</div>
-			<div class="border flex-grow-1 p-3" style="width: 300px">
-				<MyChart :data="laporanTahunan.data" :title="`TOTAL TAHUN ${tahun}`" />
-			</div>
-		</div>
+		<el-card class="mb-3">
+			<BarChart
+				:tahun="tahun"
+				:bulan="bulan"
+				:title="`Program dan Realisasi Bulan ${listBulan[bulan]} Tahun ${tahun}`"
+			/>
+		</el-card>
+
+		<el-card class="mb-3">
+			<BarChart
+				:tahun="tahun"
+				:title="`Program dan Realisasi Tahun ${tahun} `"
+			/>
+		</el-card>
 
 		<el-card class="mt-3">
 			<el-tabs>

@@ -8,7 +8,7 @@
 import { Chart } from "highcharts-vue";
 
 export default {
-	props: ["data", "title", "tahun", "bulan"],
+	props: ["title", "tahun", "bulan"],
 	components: { Chart },
 	data() {
 		return {
@@ -88,6 +88,7 @@ export default {
 				];
 			});
 		},
+
 		annualReport() {
 			const params = { tahun: this.tahun };
 			this.$axios.get("/api/annualReport", { params }).then((r) => {
@@ -111,13 +112,28 @@ export default {
 				];
 			});
 		},
+
+		getData() {
+			if (this.bulan) {
+				this.monthlyReport();
+			} else {
+				this.annualReport();
+			}
+		},
 	},
 	mounted() {
-		if (this.bulan) {
-			this.monthlyReport();
-		} else {
-			this.annualReport();
-		}
+		this.getData();
+	},
+	watch: {
+		tahun(v) {
+			this.getData();
+		},
+		bulan(v) {
+			this.getData();
+		},
+		title(v) {
+			this.chartOptions.title.text = v;
+		},
 	},
 };
 </script>
