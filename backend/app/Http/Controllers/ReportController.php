@@ -56,9 +56,20 @@ class ReportController extends Controller
         foreach (range(1, 12) as $bulan) {
             $report[] = [
                 'bulan' => date('M', mktime(0, 0, 0, $bulan, 10)),
-                'program' => ProgramKerja::where('tahun', $request->tahun)->pluck('target')->sum(),
-                'realisasi' => Order::where('status', Order::STATUS_SELESAI)->whereYear('tanggal_masuk', $request->tahun)->count(),
-                'proses' => Order::where('status', '!=', Order::STATUS_SELESAI)->whereYear('tanggal_masuk', $request->tahun)->count(),
+
+                'program' => ProgramKerja::where('tahun', $request->tahun)
+                    ->where('bulan', $bulan)
+                    ->pluck('target')->sum(),
+
+                'realisasi' => Order::where('status', Order::STATUS_SELESAI)
+                    ->whereYear('tanggal_masuk', $request->tahun)
+                    ->whereMonth('tanggal_masuk', $bulan)
+                    ->count(),
+
+                'proses' => Order::where('status', '!=', Order::STATUS_SELESAI)
+                    ->whereYear('tanggal_masuk', $request->tahun)
+                    ->whereMonth('tanggal_masuk', $bulan)
+                    ->count(),
             ];
         }
 
