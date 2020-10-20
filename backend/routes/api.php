@@ -44,3 +44,4 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
 Route::get('report/bulanan', 'ReportController@bulanan');
 Route::get('report/tahunan', 'ReportController@tahunan');
+Route::get('annualReport', 'ReportController@annualReport');

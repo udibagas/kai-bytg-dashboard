@@ -18,7 +18,7 @@
 			trigger="click"
 			:interval="30000"
 		>
-			<el-carousel-item v-for="(r, index) in bulanan" :key="index">
+			<!-- <el-carousel-item v-for="(r, index) in bulanan" :key="index">
 				<MyChart :data="r.data" :title="r.jenis_sarana" />
 			</el-carousel-item>
 			<el-carousel-item>
@@ -29,6 +29,19 @@
 			</el-carousel-item>
 			<el-carousel-item>
 				<MyChart :data="tahunan.data" :title="`TOTAL TAHUN ${tahun}`" />
+			</el-carousel-item> -->
+			<el-carousel-item>
+				<BarChart
+					:tahun="tahun"
+					:bulan="bulan"
+					:title="`Program dan Realisasi Bulan ${listBulan[bulan]} ${tahun}`"
+				/>
+			</el-carousel-item>
+			<el-carousel-item>
+				<BarChart
+					:tahun="tahun"
+					:title="`Program dan Realisasi Tahun ${tahun} `"
+				/>
 			</el-carousel-item>
 			<el-carousel-item
 				v-for="(jp, i) in listJenisPekerjaan"
@@ -46,7 +59,12 @@ import { mapState } from "vuex";
 export default {
 	props: ["show", "bulanan", "total", "tahunan", "bulan", "tahun"],
 	computed: {
-		...mapState(["listBulan", "listJenisPekerjaan"]),
+		...mapState([
+			"listBulan",
+			"listBulanShort",
+			"listJenisPekerjaan",
+			"listJenisSarana",
+		]),
 	},
 	methods: {
 		readableDate(date) {
