@@ -151,7 +151,7 @@ export default {
 					color: "orange",
 				},
 				{
-					name: "Dalam Pengerjaan",
+					name: "Proses",
 					y: d.dalam_pengerjaan,
 					color: "blue",
 				},
