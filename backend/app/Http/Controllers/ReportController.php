@@ -21,7 +21,7 @@ class ReportController extends Controller
                 (SELECT SUM(target) FROM program_kerjas WHERE jenis_sarana_id = js.id AND tahun = ? AND bulan = ?) AS target,
                 (SELECT COUNT(id) FROM orders WHERE jenis_sarana_id = js.id AND YEAR(tanggal_masuk) = ? AND MONTH(tanggal_masuk) = ? AND status = 0) AS terdaftar,
                 (SELECT COUNT(id) FROM orders WHERE jenis_sarana_id = js.id AND YEAR(tanggal_masuk) = ? AND MONTH(tanggal_masuk) = ? AND status = 10) AS dalam_pengerjaan,
-                (SELECT COUNT(id) FROM orders WHERE jenis_sarana_id = js.id AND YEAR(tanggal_masuk) = ? AND MONTH(tanggal_masuk) = ? AND status = 20) AS selesai
+                (SELECT COUNT(id) FROM orders WHERE jenis_sarana_id = js.id AND YEAR(tanggal_keluar) = ? AND MONTH(tanggal_keluar) = ? AND status = 20) AS selesai
             FROM jenis_saranas js", [
             $request->tahun, $request->bulan,
             $request->tahun, $request->bulan,
@@ -42,7 +42,7 @@ class ReportController extends Controller
         return [
             'terdaftar' => Order::where('status', Order::STATUS_TERDAFTAR)->whereYear('tanggal_masuk', $request->tahun)->count(),
             'dalam_pengerjaan' => Order::where('status', Order::STATUS_DALAM_PENGERJAAN)->whereYear('tanggal_masuk', $request->tahun)->count(),
-            'selesai' => Order::where('status', Order::STATUS_SELESAI)->whereYear('tanggal_masuk', $request->tahun)->count(),
+            'selesai' => Order::where('status', Order::STATUS_SELESAI)->whereYear('tanggal_keluar', $request->tahun)->count(),
             'target' => ProgramKerja::where('tahun', $request->tahun)->pluck('target')->sum()
         ];
     }
@@ -62,8 +62,8 @@ class ReportController extends Controller
                     ->pluck('target')->sum(),
 
                 'realisasi' => Order::where('status', Order::STATUS_SELESAI)
-                    ->whereYear('tanggal_masuk', $request->tahun)
-                    ->whereMonth('tanggal_masuk', $bulan)
+                    ->whereYear('tanggal_keluar', $request->tahun)
+                    ->whereMonth('tanggal_keluar', $bulan)
                     ->count(),
 
                 'proses' => Order::where('status', '!=', Order::STATUS_SELESAI)
