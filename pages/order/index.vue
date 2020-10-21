@@ -10,7 +10,7 @@
 			</div>
 			<el-form inline @submit.native.prevent>
 				<el-form-item>
-					<div class="input-group" style="margin-top: 5px">
+					<div class="input-group" style="margin-top: 5px; width: 160px">
 						<div class="custom-file">
 							<input
 								type="file"
@@ -60,6 +60,7 @@
 				</el-form-item>
 				<el-form-item>
 					<el-input
+						style="width: 150px"
 						@change="
 							pagination.current_page = 1;
 							getData();
@@ -97,7 +98,7 @@
 			></el-table-column>
 			<el-table-column
 				label="Status"
-				min-width="160"
+				min-width="120"
 				align-header="center"
 				align="center"
 				sortable="custom"
@@ -157,8 +158,8 @@
 			></el-table-column>
 			<el-table-column
 				prop="tanggal_masuk"
-				label="Tanggal Masuk"
-				min-width="150"
+				label="Tgl Masuk"
+				min-width="120"
 				align-header="center"
 				align="center"
 				sortable="custom"
@@ -169,8 +170,8 @@
 			</el-table-column>
 			<el-table-column
 				prop="tanggal_keluar"
-				label="Tanggal Keluar"
-				min-width="150"
+				label="Tgl Keluar"
+				min-width="120"
 				align-header="center"
 				align="center"
 				sortable="custom"
@@ -182,7 +183,7 @@
 			<el-table-column
 				prop="dipo"
 				label="Dipo"
-				min-width="100"
+				min-width="80"
 				align-header="center"
 				align="center"
 				column-key="dipo_id"
@@ -191,7 +192,7 @@
 			<el-table-column
 				prop="jalur"
 				label="Jalur"
-				min-width="100"
+				min-width="80"
 				align-header="center"
 				align="center"
 				column-key="jalur_id"
