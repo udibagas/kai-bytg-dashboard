@@ -33,7 +33,7 @@ class Order extends Model
     {
         $status = [
             self::STATUS_TERDAFTAR => 'TERDAFTAR',
-            self::STATUS_DALAM_PENGERJAAN => 'DALAM PENGERJAAN',
+            self::STATUS_DALAM_PENGERJAAN => 'PROSES',
             self::STATUS_SELESAI => 'SELESAI'
         ];
 
