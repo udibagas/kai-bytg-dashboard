@@ -44,7 +44,7 @@ class Order extends Model
     {
         $types = [
             self::STATUS_TERDAFTAR => 'info',
-            self::STATUS_DALAM_PENGERJAAN => 'primary',
+            self::STATUS_DALAM_PENGERJAAN => 'warning',
             self::STATUS_SELESAI => 'success'
         ];
 
