@@ -32,7 +32,7 @@ class OrderController extends Controller
                     });
             });
         })->when($request->dateRange, function ($q) use ($request) {
-            $q->whereBetween('tanggal_masuk', $request->dateRange);
+            $q->whereBetween('tanggal_keluar', $request->dateRange);
         })->when($request->tanggal_masuk, function ($q) use ($request) {
             $q->whereBetween('tanggal_masuk', $request->tanggal_masuk);
         })->when($request->jenis_sarana_id, function ($q) use ($request) {
@@ -254,7 +254,7 @@ class OrderController extends Controller
                     });
             });
         })->when($request->dateRange, function ($q) use ($request) {
-            $q->whereBetween('tanggal_masuk', $request->dateRange);
+            $q->whereBetween('tanggal_keluar', $request->dateRange);
         })->when($request->tanggal_masuk, function ($q) use ($request) {
             $q->whereBetween('tanggal_masuk', $request->tanggal_masuk);
         })->when($request->jenis_sarana_id, function ($q) use ($request) {
