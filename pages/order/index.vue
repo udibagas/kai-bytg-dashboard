@@ -44,6 +44,21 @@
 					>
 				</el-form-item>
 				<el-form-item>
+					<el-date-picker
+						style="margin-top: 5px; width: 240px"
+						v-model="dateRange"
+						type="daterange"
+						range-separator="-"
+						start-placeholder="Dari"
+						end-placeholder="Sampai"
+						size="small"
+						format="dd-MMM-yyyy"
+						value-format="yyyy-MM-dd"
+						@change="getData"
+					>
+					</el-date-picker>
+				</el-form-item>
+				<el-form-item>
 					<el-input
 						@change="
 							pagination.current_page = 1;
@@ -131,13 +146,6 @@
 				</template>
 			</el-table-column>
 
-			<!-- <el-table-column
-				prop="jenis_sarana"
-				label="Jenis Sarana"
-				min-width="120"
-				align-header="center"
-				align="center"
-			></el-table-column> -->
 			<el-table-column
 				prop="jenis_pekerjaan"
 				label="Pekerjaan"
@@ -284,6 +292,7 @@ export default {
 		return {
 			loading: false,
 			tableData: [],
+			dateRange: null,
 			keyword: "",
 			selectedData: {},
 			showForm: false,
@@ -392,6 +401,7 @@ export default {
 				page: this.pagination.current_page,
 				sort: this.sort,
 				order: this.order,
+				dateRange: this.dateRange,
 			};
 
 			this.loading = true;
@@ -429,8 +439,16 @@ export default {
 		},
 		exportOrder() {
 			this.exportInProgress = true;
+			const params = {
+				...this.filters,
+				keyword: this.keyword,
+				sort: this.sort,
+				order: this.order,
+				dateRange: this.dateRange,
+			};
+
 			this.$axios
-				.get("/api/order/export")
+				.get("/api/order/export", { params })
 				.then((r) => {
 					exportFromJson({
 						data: r.data,
