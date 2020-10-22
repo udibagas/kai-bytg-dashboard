@@ -27,10 +27,6 @@
 						<td class="pr-4">{{ order.dipo.nama }}</td>
 					</tr>
 					<tr>
-						<td class="td-label pl-3">Jalur</td>
-						<td class="pr-4">{{ order.jalur ? order.jalur.nama : "" }}</td>
-					</tr>
-					<tr>
 						<td class="td-label pl-3">Jenis Pekerjaan</td>
 						<td class="pr-4">
 							{{ order.jenis_pekerjaan.kode }} -

@@ -5,14 +5,12 @@ namespace App\Http\Controllers;
 use App\Dipo;
 use App\Http\Requests\OrderRequest;
 use App\Http\Resources\OrderCollection;
-use App\Jalur;
 use App\JenisPekerjaan;
 use App\JenisSarana;
 use App\Order;
 use App\Sarana;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
@@ -182,7 +180,6 @@ class OrderController extends Controller
             'user',
             'sarana',
             'jenisSarana',
-            'jalur',
             'dipo',
             'jenisPekerjaan'
         ]);

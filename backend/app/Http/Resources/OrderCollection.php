@@ -21,7 +21,6 @@ class OrderCollection extends ResourceCollection
                     'jenis_pekerjaan' => $item->jenisPekerjaan->kode,
                     'dipo' => $item->dipo ? $item->dipo->kode : '',
                     'jenis_sarana' => $item->jenisSarana->kode,
-                    'jalur' => $item->jalur ? $item->jalur->nama : ''
                 ]);
             })
         ];
