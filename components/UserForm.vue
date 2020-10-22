@@ -9,34 +9,49 @@
 		<el-form label-position="left" label-width="200px">
 			<el-form-item label="Nama" :class="formError.name ? 'is-error' : ''">
 				<el-input v-model="formModel.name" placeholder="Nama"></el-input>
-				<div class="el-form-item__error" v-if="formError.name">{{formError.name.join(', ')}}</div>
+				<div class="el-form-item__error" v-if="formError.name">
+					{{ formError.name.join(", ") }}
+				</div>
 			</el-form-item>
 
 			<el-form-item label="Email" :class="formError.email ? 'is-error' : ''">
-				<el-input autocomplete="off" v-model="formModel.email" placeholder="Email"></el-input>
-				<div class="el-form-item__error" v-if="formError.email">{{formError.email.join(', ')}}</div>
+				<el-input
+					autocomplete="off"
+					v-model="formModel.email"
+					placeholder="Email"
+				></el-input>
+				<div class="el-form-item__error" v-if="formError.email">
+					{{ formError.email.join(", ") }}
+				</div>
 			</el-form-item>
 
-			<el-form-item label="Password" :class="formError.password ? 'is-error' : ''">
+			<el-form-item
+				label="Password"
+				:class="formError.password ? 'is-error' : ''"
+			>
 				<el-input
 					autocomplete="off"
 					type="password"
 					v-model="formModel.password"
 					placeholder="Password"
 				></el-input>
-				<div class="el-form-item__error" v-if="formError.password">{{formError.password.join(', ')}}</div>
+				<div class="el-form-item__error" v-if="formError.password">
+					{{ formError.password.join(", ") }}
+				</div>
 			</el-form-item>
-			<el-form-item label="Konfirmasi Password" :class="formError.password ? 'is-error' : ''">
+			<el-form-item
+				label="Konfirmasi Password"
+				:class="formError.password ? 'is-error' : ''"
+			>
 				<el-input
 					autocomplete="off"
 					type="password"
 					v-model="formModel.password_confirmation"
 					placeholder="Konfirmasi Password"
 				></el-input>
-				<div
-					class="el-form-item__error"
-					v-if="formError.password_confirmation"
-				>{{formError.password_confirmation.join(', ')}}</div>
+				<div class="el-form-item__error" v-if="formError.password_confirmation">
+					{{ formError.password_confirmation.join(", ") }}
+				</div>
 			</el-form-item>
 
 			<!-- <el-form-item label="Role" :class="formError.role ? 'is-error' : ''">
@@ -52,12 +67,15 @@
 			</el-form-item>-->
 		</el-form>
 		<div slot="footer">
-			<el-button icon="el-icon-error" type="primary" plain @click="closeForm">BATAL</el-button>
+			<el-button icon="el-icon-error" type="primary" plain @click="closeForm"
+				>BATAL</el-button
+			>
 			<el-button
 				icon="el-icon-success"
 				type="primary"
-				@click="() => !!formModel.id ? update() : store()"
-			>SIMPAN</el-button>
+				@click="() => (!!formModel.id ? update() : store())"
+				>SIMPAN</el-button
+			>
 		</div>
 	</el-dialog>
 </template>
@@ -115,6 +133,7 @@ export default {
 				.put(`/api/user/${this.formModel.id}`, this.formModel)
 				.then((r) => {
 					this.closeForm();
+					this.$auth.fetchUser();
 					this.$emit("refresh-data");
 					this.$message({
 						message: r.data.message,

@@ -37,16 +37,24 @@
 
 					<div class="text-center p-4">
 						<el-avatar :size="75" icon="el-icon-user-solid"></el-avatar>
-						<h5 class="mt-4 mb-4">{{ $auth.user.name.toUpperCase() }}</h5>
-						<el-button icon="el-icon-edit" type="primary"
-							>Edit Profil</el-button
+						<h5 class="mt-2">{{ $auth.user.name.toUpperCase() }}</h5>
+						<div class="mb-4">{{ $auth.user.email }}</div>
+						<el-button
+							icon="el-icon-edit"
+							type="primary"
+							size="mini"
+							@click="showProfileDialog = true"
 						>
+							Edit Profil
+						</el-button>
 						<el-button
 							icon="el-icon-d-arrow-right"
+							size="mini"
 							type="danger"
 							@click="logout"
-							>Keluar</el-button
 						>
+							Keluar
+						</el-button>
 					</div>
 				</el-popover>
 				<div class="ml-2">{{ $auth.user.name }}</div>
@@ -55,6 +63,12 @@
 				<Nuxt />
 			</el-main>
 		</el-container>
+
+		<UserForm
+			:show="showProfileDialog"
+			:data="user"
+			@close-form="showProfileDialog = false"
+		/>
 	</el-container>
 </template>
 
@@ -65,6 +79,8 @@ export default {
 		return {
 			menus: [],
 			collapse: true,
+			showProfileDialog: false,
+			user: JSON.parse(JSON.stringify(this.$auth.user)),
 		};
 	},
 	methods: {
