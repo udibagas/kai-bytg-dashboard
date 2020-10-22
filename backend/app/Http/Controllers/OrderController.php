@@ -62,8 +62,6 @@ class OrderController extends Controller
      */
     public function store(OrderRequest $request)
     {
-        $jalur = Jalur::firstOrCreate(['id' => $request->jalur_id], ['nama' => $request->jalur_id]);
-
         // dikhawatirkan bentrok dengan nomor
         $sarana = Sarana::find($request->sarana_id);
 
@@ -80,7 +78,6 @@ class OrderController extends Controller
         $order = Order::create(array_merge($request->all(), [
             'user_id' => auth()->user()->id,
             'sarana_id' => $sarana->id,
-            'jalur_id' => $jalur->id
         ]));
 
         return [
@@ -200,8 +197,6 @@ class OrderController extends Controller
      */
     public function update(OrderRequest $request, Order $order)
     {
-        $jalur = Jalur::firstOrCreate(['id' => $request->jalur_id], ['nama' => $request->jalur_id]);
-
         // dikhawatirkan bentrok dengan nomor
         $sarana = Sarana::find($request->sarana_id);
 
@@ -217,7 +212,6 @@ class OrderController extends Controller
 
         $order->update(array_merge($request->all(), [
             'sarana_id' => $sarana->id,
-            'jalur_id' => $jalur->id
         ]));
 
         return [

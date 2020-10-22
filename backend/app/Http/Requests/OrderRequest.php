@@ -29,7 +29,6 @@ class OrderRequest extends FormRequest
             'sarana_id' => 'required',
             'jenis_sarana_id' => 'required',
             'dipo_id' => 'required',
-            'jalur_id' => 'required',
             'jenis_pekerjaan_id' => 'required',
         ];
     }
@@ -42,7 +41,6 @@ class OrderRequest extends FormRequest
             'sarana_id' => 'Sarana',
             'jenis_sarana_id' => 'Jenis Sarana',
             'dipo_id' => 'Dipo',
-            'jalur_id' => 'Jalur',
             'jenis_pekerjaan_id' => 'Jenis Pekerjaan'
         ];
     }

@@ -190,15 +190,6 @@
 				:filters="filterDipo"
 			></el-table-column>
 			<el-table-column
-				prop="jalur"
-				label="Jalur"
-				min-width="80"
-				align-header="center"
-				align="center"
-				column-key="jalur_id"
-				:filters="filterJalur"
-			></el-table-column>
-			<el-table-column
 				prop="keterangan"
 				label="Keterangan"
 				min-width="150px"

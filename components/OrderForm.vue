@@ -104,27 +104,6 @@
 				</div>
 			</el-form-item>
 
-			<el-form-item label="Jalur" :class="formError.jalur_id ? 'is-error' : ''">
-				<el-select
-					v-model="formModel.jalur_id"
-					placeholder="Jalur"
-					style="width: 100%"
-					filterable
-					default-first-option
-					allow-create
-				>
-					<el-option
-						v-for="jalur in listJalur"
-						:key="jalur.id"
-						:label="jalur.nama"
-						:value="jalur.id"
-					></el-option>
-				</el-select>
-				<div class="el-form-item__error" v-if="formError.jalur_id">
-					{{ formError.jalur_id.join(", ") }}
-				</div>
-			</el-form-item>
-
 			<el-form-item
 				label="Jenis Pekerjaan"
 				:class="formError.jenis_pekerjaan_id ? 'is-error' : ''"
