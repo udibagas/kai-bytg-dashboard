@@ -24,7 +24,9 @@ class Order extends Model
         'prosentase_pekerjaan',
         'status',
         'user_id',
-        'keterangan'
+        'keterangan',
+        'by_pa_akhir',
+        'tgl_pa_akhir'
     ];
 
     protected $appends = ['status_label', 'status_type'];

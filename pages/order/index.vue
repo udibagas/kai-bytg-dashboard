@@ -156,6 +156,27 @@
 				column-key="jenis_pekerjaan_id"
 				:filters="filterJenisPekerjaan"
 			></el-table-column>
+
+			<el-table-column label="PA Akhir" header-align="center">
+				<el-table-column
+					label="BY"
+					prop="by_pa_akhir"
+					header-align="center"
+					align="center"
+				>
+				</el-table-column>
+				<el-table-column
+					label="Tgl"
+					prop="tgl_pa_akhir"
+					header-align="center"
+					align="center"
+					width="120"
+				>
+					<template slot-scope="scope">
+						{{ readableDate(scope.row.tgl_pa_akhir) }}
+					</template>
+				</el-table-column>
+			</el-table-column>
 			<el-table-column
 				prop="tanggal_masuk"
 				label="Tgl Masuk"

@@ -127,6 +127,23 @@
 				</div>
 			</el-form-item>
 
+			<el-form-item label="PA Akhir">
+				<div class="d-flex">
+					<el-input
+						class="mr-3"
+						v-model="formModel.by_pa_akhir"
+						placeholder="Balai Yasa"
+					></el-input>
+					<el-date-picker
+						v-model="formModel.tgl_pa_akhir"
+						placeholder="Tanggal PA Akhir"
+						format="dd-MMM-yyyy"
+						value-format="yyyy-MM-dd"
+						style="width: 300px"
+					></el-date-picker>
+				</div>
+			</el-form-item>
+
 			<el-form-item
 				label="Keterangan"
 				:class="formError.keterangan ? 'is-error' : ''"
