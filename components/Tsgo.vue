@@ -2,7 +2,7 @@
 	<table class="table table-striped">
 		<thead>
 			<tr>
-				<th colspan="7" class="text-center bg-success text-white">
+				<th colspan="7" class="text-center bg-danger text-white">
 					TSGO - Tidak Siap Guna Operasi ({{ total }})
 				</th>
 			</tr>
