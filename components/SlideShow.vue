@@ -37,6 +37,9 @@
 			>
 				<OrderTable :jp="jp" :bulan="bulan" :tahun="tahun" />
 			</el-carousel-item>
+			<el-carousel-item>
+				<Tsgo :bulan="bulan" :tahun="tahun" />
+			</el-carousel-item>
 		</el-carousel>
 	</el-dialog>
 </template>
@@ -45,7 +48,7 @@
 import { mapState } from "vuex";
 
 export default {
-	props: ["show", "bulanan", "total", "tahunan", "bulan", "tahun"],
+	props: ["show", "bulan", "tahun"],
 	computed: {
 		...mapState(["listBulan", "listJenisPekerjaan"]),
 	},

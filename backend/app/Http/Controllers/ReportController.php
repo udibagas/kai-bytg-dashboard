@@ -57,16 +57,19 @@ class ReportController extends Controller
             $report[] = [
                 'bulan' => date('M', mktime(0, 0, 0, $bulan, 10)),
 
-                'program' => ProgramKerja::where('tahun', $request->tahun)
+                'program' => ProgramKerja::chart()
+                    ->where('tahun', $request->tahun)
                     ->where('bulan', $bulan)
                     ->pluck('target')->sum(),
 
-                'realisasi' => Order::where('status', Order::STATUS_SELESAI)
+                'realisasi' => Order::chart()
+                    ->where('status', Order::STATUS_SELESAI)
                     ->whereYear('tanggal_keluar', $request->tahun)
                     ->whereMonth('tanggal_keluar', $bulan)
                     ->count(),
 
-                'proses' => Order::where('status', '!=', Order::STATUS_SELESAI)
+                'proses' => Order::chart()
+                    ->where('status', '!=', Order::STATUS_SELESAI)
                     ->whereYear('tanggal_masuk', $request->tahun)
                     ->whereMonth('tanggal_masuk', $bulan)
                     ->count(),

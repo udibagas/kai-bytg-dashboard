@@ -36,4 +36,11 @@ class ProgramKerja extends Model
 
         return $bulan[$this->bulan];
     }
+
+    public function scopeChart($q)
+    {
+        return $q->whereHas('jenisPekerjaan', function ($q) {
+            $q->where('tampilkan_di_grafik', 1);
+        });
+    }
 }

@@ -9,21 +9,32 @@
 		<el-form label-position="left" label-width="200px">
 			<el-form-item label="Kode" :class="formError.kode ? 'is-error' : ''">
 				<el-input v-model="formModel.kode" placeholder="Kode"></el-input>
-				<div class="el-form-item__error" v-if="formError.kode">{{formError.kode.join(', ')}}</div>
+				<div class="el-form-item__error" v-if="formError.kode">
+					{{ formError.kode.join(", ") }}
+				</div>
 			</el-form-item>
 
 			<el-form-item label="Nama" :class="formError.nama ? 'is-error' : ''">
 				<el-input v-model="formModel.nama" placeholder="Nama"></el-input>
-				<div class="el-form-item__error" v-if="formError.nama">{{formError.nama.join(', ')}}</div>
+				<div class="el-form-item__error" v-if="formError.nama">
+					{{ formError.nama.join(", ") }}
+				</div>
+			</el-form-item>
+			<el-form-item label="Tampilkan di Grafik">
+				<el-checkbox v-model="formModel.tampilkan_di_grafik">Ya</el-checkbox>
 			</el-form-item>
 		</el-form>
+
 		<div slot="footer">
-			<el-button icon="el-icon-error" type="primary" plain @click="closeForm">BATAL</el-button>
+			<el-button icon="el-icon-error" type="primary" plain @click="closeForm"
+				>BATAL</el-button
+			>
 			<el-button
 				icon="el-icon-success"
 				type="primary"
-				@click="() => !!formModel.id ? update() : store()"
-			>SIMPAN</el-button>
+				@click="() => (!!formModel.id ? update() : store())"
+				>SIMPAN</el-button
+			>
 		</div>
 	</el-dialog>
 </template>

@@ -92,4 +92,11 @@ class Order extends Model
     {
         return $this->belongsTo(JenisPekerjaan::class);
     }
+
+    public function scopeChart($q)
+    {
+        return $q->whereHas('jenisPekerjaan', function ($q) {
+            $q->where('tampilkan_di_grafik', 1);
+        });
+    }
 }

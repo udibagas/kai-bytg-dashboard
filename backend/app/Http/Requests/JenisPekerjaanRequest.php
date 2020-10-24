@@ -26,7 +26,8 @@ class JenisPekerjaanRequest extends FormRequest
         return [
             'kode' => 'required|max:255',
             'nama' => 'required|max:255',
-            'keterangan' => 'max:255'
+            'keterangan' => 'max:255',
+            'tampilkan_di_grafik' => 'required|boolean'
         ];
     }
 }

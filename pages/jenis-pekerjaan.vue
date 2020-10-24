@@ -16,7 +16,7 @@
 						icon="el-icon-plus"
 						@click="
 							() => {
-								selectedData = {};
+								selectedData = { tampilkan_di_grafik: true };
 								showForm = true;
 							}
 						"
@@ -44,6 +44,21 @@
 			<el-table-column type="index" label="#"></el-table-column>
 			<el-table-column prop="kode" label="Kode"></el-table-column>
 			<el-table-column prop="nama" label="Nama"></el-table-column>
+			<el-table-column
+				label="Tampilkan di Grafik"
+				header-align="center"
+				align="center"
+			>
+				<template slot-scope="scope">
+					<i
+						:class="
+							scope.row.tampilkan_di_grafik
+								? 'el-icon-check text-success'
+								: 'el-icon-close text-danger'
+						"
+					></i>
+				</template>
+			</el-table-column>
 			<el-table-column
 				fixed="right"
 				width="40px"
