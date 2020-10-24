@@ -65,36 +65,12 @@ export default {
 				bulan: this.bulan,
 			};
 
-			this.$axios.get("/api/report/bulanan", { params }).then((r) => {
+			this.$axios.get("/api/monthlyReport", { params }).then((r) => {
 				this.chartOptions.xAxis.categories = r.data.map((d) => {
 					return d.jenis_sarana;
 				});
 
-				const program = r.data.map((d) => Number(d.target));
-				const realisasi = r.data.map((d) => Number(d.selesai));
-				const proses = r.data.map(
-					(d) => Number(d.terdaftar) + Number(d.dalam_pengerjaan)
-				);
-
-				this.chartOptions.series = [
-					{
-						name: `Program (${program.reduce((prev, curr) => prev + curr)})`,
-						color: "#79acee",
-						data: program,
-					},
-					{
-						name: `Realisasi (${realisasi.reduce(
-							(prev, curr) => prev + curr
-						)})`,
-						color: "#5bfe79",
-						data: realisasi,
-					},
-					{
-						name: `Proses (${proses.reduce((prev, curr) => prev + curr)})`,
-						color: "#e55b00",
-						data: proses,
-					},
-				];
+				this.updateSeries(r.data);
 			});
 		},
 
@@ -102,31 +78,32 @@ export default {
 			const params = { tahun: this.tahun };
 			this.$axios.get("/api/annualReport", { params }).then((r) => {
 				this.chartOptions.xAxis.categories = r.data.map((d) => d.bulan);
-
-				const program = r.data.map((d) => Number(d.program));
-				const realisasi = r.data.map((d) => Number(d.realisasi));
-				const proses = r.data.map((d) => Number(d.proses));
-
-				this.chartOptions.series = [
-					{
-						name: `Program (${program.reduce((prev, curr) => prev + curr)})`,
-						color: "#79acee",
-						data: program,
-					},
-					{
-						name: `Realisasi (${realisasi.reduce(
-							(prev, curr) => prev + curr
-						)})`,
-						color: "#5bfe79",
-						data: realisasi,
-					},
-					{
-						name: `Proses (${proses.reduce((prev, curr) => prev + curr)})`,
-						color: "#e55b00",
-						data: proses,
-					},
-				];
+				this.updateSeries(r.data);
 			});
+		},
+
+		updateSeries(data) {
+			const program = data.map((d) => Number(d.program));
+			const realisasi = data.map((d) => Number(d.realisasi));
+			const proses = data.map((d) => Number(d.proses));
+
+			this.chartOptions.series = [
+				{
+					name: `Program (${program.reduce((prev, curr) => prev + curr)})`,
+					color: "#79acee",
+					data: program,
+				},
+				{
+					name: `Realisasi (${realisasi.reduce((prev, curr) => prev + curr)})`,
+					color: "#5bfe79",
+					data: realisasi,
+				},
+				{
+					name: `Proses (${proses.reduce((prev, curr) => prev + curr)})`,
+					color: "#e55b00",
+					data: proses,
+				},
+			];
 		},
 
 		getData() {

@@ -42,6 +42,5 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::resource('orderDetail', 'OrderDetailController')->only(['update', 'destroy']);
 });
 
-Route::get('report/bulanan', 'ReportController@bulanan');
-Route::get('report/tahunan', 'ReportController@tahunan');
+Route::get('monthlyReport', 'ReportController@monthlyReport');
 Route::get('annualReport', 'ReportController@annualReport');
