@@ -20,7 +20,14 @@
 							:key="p.id"
 							:value="p.id"
 							:label="p.nama"
-						></el-option>
+						>
+							<span style="float: left">{{ p.nama }}</span>
+							<i
+								class="el-icon-circle-close"
+								style="float: right; line-height: 30px"
+								@click.prevent="removeJenisDetailPekerjaan(p.id)"
+							></i>
+						</el-option>
 					</el-select>
 					<div
 						class="el-form-item__error"
@@ -168,6 +175,7 @@ export default {
 				this.formModel.prosentase_pekerjaan = detail.prosentase_pekerjaan;
 			}
 		},
+
 		reset() {
 			this.formModel = {
 				order_id: this.order.id,
@@ -176,6 +184,7 @@ export default {
 				tanggal_keluar: this.order.tanggal_keluar,
 			};
 		},
+
 		submit() {
 			this.$axios
 				.post("/api/orderProgress", this.formModel)
@@ -201,6 +210,17 @@ export default {
 						type: "error",
 					});
 				});
+		},
+
+		removeJenisDetailPekerjaan(id) {
+			this.$confirm("Anda yakin akan menghapus item ini?", "Perhatian")
+				.then(() => {
+					this.$axios.delete(`/api/jenisDetailPekerjaan/${id}`).then((r) => {
+						this.formModel.jenis_detail_pekerjaan_id = "";
+						this.$store.dispatch("getListJenisDetailPekerjaan");
+					});
+				})
+				.catch(() => console.log(e));
 		},
 	},
 };

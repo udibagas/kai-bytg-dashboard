@@ -16,9 +16,6 @@
 					v-model="formModel.jenis_detail_pekerjaan_id"
 					style="width: 100%"
 					placeholder="Pilih Pekerjaan"
-					filterable
-					default-first-option
-					allow-create
 				>
 					<el-option
 						v-for="p in listJenisDetailPekerjaan"
@@ -126,9 +123,6 @@ export default {
 			this.formError = {};
 			this.$emit("close-form");
 		},
-	},
-	created() {
-		this.$store.dispatch("getListJenisDetailPekerjaan");
 	},
 };
 </script>

@@ -108,7 +108,7 @@ export const actions = {
   }) {
     let {
       data
-    } = await this.$axios.get('/api/jenisDetailPekerjaan')
+    } = await this.$axios.get('/api/jenisDetailPekerjaan', { hidden: 0 })
     commit('setListJenisDetailPekerjaan', data)
   },
 
