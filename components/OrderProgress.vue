@@ -13,7 +13,9 @@
 			<tbody>
 				<tr v-for="p in detail" :key="p.id">
 					<td>{{ p.created_at }}</td>
-					<td>{{ p.jenis_detail_pekerjaan.nama }}</td>
+					<td>
+						{{ p.jenis_detail_pekerjaan ? p.jenis_detail_pekerjaan.nama : "" }}
+					</td>
 					<td>{{ p.keterangan }}</td>
 					<td>
 						<el-progress :percentage="p.prosentase_pekerjaan"></el-progress>

@@ -25,7 +25,7 @@
 							<i
 								class="el-icon-circle-close"
 								style="float: right; line-height: 30px"
-								@click.prevent="removeJenisDetailPekerjaan(p.id)"
+								@click.prevent="hideJenisDetailPekerjaan(p.id, p.nama)"
 							></i>
 						</el-option>
 					</el-select>
@@ -136,7 +136,11 @@
 							<br />
 							{{ p.created_at }}
 						</div>
-						<h5 class="mt-0 mb-1">{{ p.jenis_detail_pekerjaan.nama }}</h5>
+						<h5 class="mt-0 mb-1">
+							{{
+								p.jenis_detail_pekerjaan ? p.jenis_detail_pekerjaan.nama : ""
+							}}
+						</h5>
 						<el-progress :percentage="p.prosentase_pekerjaan"></el-progress>
 						<p class="mt-3 mb-3" v-html="p.keterangan"></p>
 					</div>
@@ -212,13 +216,15 @@ export default {
 				});
 		},
 
-		removeJenisDetailPekerjaan(id) {
+		hideJenisDetailPekerjaan(id, nama) {
 			this.$confirm("Anda yakin akan menghapus item ini?", "Perhatian")
 				.then(() => {
-					this.$axios.delete(`/api/jenisDetailPekerjaan/${id}`).then((r) => {
-						this.formModel.jenis_detail_pekerjaan_id = "";
-						this.$store.dispatch("getListJenisDetailPekerjaan");
-					});
+					this.$axios
+						.put(`/api/jenisDetailPekerjaan/${id}`, { hidden: 1, nama: nama })
+						.then((r) => {
+							this.formModel.jenis_detail_pekerjaan_id = "";
+							this.$store.dispatch("getListJenisDetailPekerjaan");
+						});
 				})
 				.catch(() => console.log(e));
 		},
