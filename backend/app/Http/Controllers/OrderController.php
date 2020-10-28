@@ -30,9 +30,10 @@ class OrderController extends Controller
                     });
             });
         })->when($request->dateRange, function ($q) use ($request) {
-            $q->whereBetween('tanggal_keluar', $request->dateRange);
-        })->when($request->tanggal_masuk, function ($q) use ($request) {
-            $q->whereBetween('tanggal_masuk', $request->tanggal_masuk);
+            $q->where(function ($q) use ($request) {
+                $q->whereBetween('tanggal_keluar', $request->dateRange)
+                    ->orWhereBetween('tanggal_masuk', $request->dateRange);
+            });
         })->when($request->jenis_sarana_id, function ($q) use ($request) {
             $q->whereIn('jenis_sarana_id', $request->jenis_sarana_id);
         })->when($request->dipo_id, function ($q) use ($request) {
@@ -44,9 +45,15 @@ class OrderController extends Controller
         })->when($request->status, function ($q) use ($request) {
             $q->whereIn('status', $request->status);
         })->when($request->tahun, function ($q) use ($request) {
-            $q->whereYear('tanggal_masuk', $request->tahun);
+            $q->where(function ($q) use ($request) {
+                $q->whereYear('tanggal_masuk', $request->tahun)
+                    ->orWhereYear('tanggal_masuk', $request->tahun);
+            });
         })->when($request->bulan, function ($q) use ($request) {
-            $q->whereMonth('tanggal_masuk', $request->bulan);
+            $q->where(function ($q) use ($request) {
+                $q->whereMonth('tanggal_masuk', $request->bulan)
+                    ->orWhereMonth('tanggal_keluar', $request->bulan);
+            });
         })->orderBy($request->sort ?: 'tanggal_masuk', $request->order == 'ascending' ? 'asc' : 'desc')->paginate($request->per_page);
 
         return new OrderCollection($resource);
