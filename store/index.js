@@ -106,7 +106,7 @@ export const actions = {
   async getListJenisDetailPekerjaan({
     commit
   }) {
-    const params = { hidden: 0 }
+    const params = { hidden: 'false' }
     let {
       data
     } = await this.$axios.get('/api/jenisDetailPekerjaan', { params })
