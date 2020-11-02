@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class ProgramKerjaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:10,30']);
+    }
+
     /**
      * Display a listing of the resource.
      *

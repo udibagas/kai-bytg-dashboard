@@ -6,28 +6,32 @@ use Illuminate\Http\Request;
 
 class MenuController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return [
+        $menus = [
             [
                 'label' => 'Beranda',
                 'path' => '/',
-                'icon' => 'el-icon-pie-chart'
+                'icon' => 'el-icon-pie-chart',
+                'roles' => [0, 10, 20, 30]
             ],
             [
                 'label' => 'Order',
                 'path' => '/order',
-                'icon' => 'el-icon-s-order'
+                'icon' => 'el-icon-s-order',
+                'roles' => [10, 20, 30]
             ],
             [
                 'label' => 'Sarana',
                 'path' => '/sarana',
-                'icon' => 'el-icon-truck'
+                'icon' => 'el-icon-truck',
+                'roles' => [10, 20, 30]
             ],
             [
                 'label' => 'Jenis Sarana',
                 'path' => '/jenis-sarana',
-                'icon' => 'el-icon-collection-tag'
+                'icon' => 'el-icon-collection-tag',
+                'roles' => [10, 20, 30]
             ],
             // [
             //     'label' => 'Bogie',
@@ -37,7 +41,8 @@ class MenuController extends Controller
             [
                 'label' => 'Dipo',
                 'path' => '/dipo',
-                'icon' => 'el-icon-school'
+                'icon' => 'el-icon-school',
+                'roles' => [10, 20, 30]
             ],
             // [
             //     'label' => 'Stasiun',
@@ -52,7 +57,8 @@ class MenuController extends Controller
             [
                 'label' => 'Jenis Pekerjaan',
                 'path' => '/jenis-pekerjaan',
-                'icon' => 'el-icon-s-tools'
+                'icon' => 'el-icon-s-tools',
+                'roles' => [10, 20, 30]
             ],
             // [
             //     'label' => 'Jenis Detail Pekerjaan',
@@ -62,13 +68,19 @@ class MenuController extends Controller
             [
                 'label' => 'Program Kerja',
                 'path' => '/program-kerja',
-                'icon' => 'el-icon-date'
+                'icon' => 'el-icon-date',
+                'roles' => [10, 30]
             ],
             [
                 'label' => 'User',
                 'path' => '/user',
-                'icon' => 'el-icon-user'
+                'icon' => 'el-icon-user',
+                'roles' => [30]
             ],
         ];
+
+        return array_filter($menus, function ($item) use ($request) {
+            return in_array($request->user()->role, $item['roles']);
+        });
     }
 }

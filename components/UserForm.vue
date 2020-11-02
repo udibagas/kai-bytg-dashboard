@@ -5,6 +5,7 @@
 		:before-close="closeForm"
 		:visible.sync="show"
 		:title="!!formModel.id ? 'EDIT USER' : 'TAMBAH USER'"
+		width="600px"
 	>
 		<el-form label-position="left" label-width="200px">
 			<el-form-item label="Nama" :class="formError.name ? 'is-error' : ''">
@@ -54,17 +55,25 @@
 				</div>
 			</el-form-item>
 
-			<!-- <el-form-item label="Role" :class="formError.role ? 'is-error' : ''">
-				<el-select  v-model="formModel.role" filterable default-first-option>
+			<el-form-item label="Role" :class="formError.role ? 'is-error' : ''">
+				<el-select
+					v-model="formModel.role"
+					filterable
+					default-first-option
+					style="width: 100%"
+					:disabled="$auth.user.role != 30"
+				>
 					<el-option
-						v-for="(label, value) in userRoleList"
-						:key="value"
-						:label="label"
-						:value="parseInt(value)"
+						v-for="role in roleList"
+						:key="role.value"
+						:label="role.text"
+						:value="role.value"
 					></el-option>
 				</el-select>
-				<div class="el-form-item__error" v-if="formError.role">{{formError.role.join(', ')}}</div>
-			</el-form-item>-->
+				<div class="el-form-item__error" v-if="formError.role">
+					{{ formError.role.join(", ") }}
+				</div>
+			</el-form-item>
 		</el-form>
 		<div slot="footer">
 			<el-button icon="el-icon-error" type="primary" plain @click="closeForm"
@@ -81,12 +90,15 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
 	props: ["show", "data"],
 	computed: {
 		formModel() {
 			return this.data;
 		},
+		...mapState(["roleList"]),
 	},
 	data() {
 		return {

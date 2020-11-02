@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class OrderDetailController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:10,20,30']);
+    }
+
     public function update(OrderDetailRequest $request, OrderDetail $orderDetail)
     {
         $orderDetail->update($request->all());

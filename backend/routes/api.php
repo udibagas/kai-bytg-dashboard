@@ -40,7 +40,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     Route::resource('orderProgress', 'OrderProgressController')->only(['store']);
     Route::resource('orderDetail', 'OrderDetailController')->only(['update', 'destroy']);
-});
 
-Route::get('monthlyReport', 'ReportController@monthlyReport');
-Route::get('annualReport', 'ReportController@annualReport');
+    Route::get('monthlyReport', 'ReportController@monthlyReport');
+    Route::get('annualReport', 'ReportController@annualReport');
+});

@@ -45,6 +45,12 @@
 			<el-table-column prop="name" label="Nama"></el-table-column>
 			<el-table-column prop="email" label="Email"></el-table-column>
 			<el-table-column
+				prop="role_name"
+				label="Role"
+				align="center"
+				header-align="center"
+			></el-table-column>
+			<el-table-column
 				fixed="right"
 				width="40px"
 				align="center"

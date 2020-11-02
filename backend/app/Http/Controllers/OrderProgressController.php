@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 
 class OrderProgressController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:10,20,30']);
+    }
+
     /**
      * Display a listing of the resource.
      *

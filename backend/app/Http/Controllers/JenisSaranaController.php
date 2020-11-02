@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\JenisSaranaRequest;
 use App\JenisSarana;
+use App\User;
 use Illuminate\Http\Request;
 
 class JenisSaranaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:' . User::ROLE_ADMIN])->except(['index', 'update']);
+    }
+
     /**
      * Display a listing of the resource.
      *

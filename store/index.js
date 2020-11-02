@@ -13,6 +13,12 @@ export const state = () => ({
   filterJalur: [],
   filterJenisSarana: [],
   filterJenisPekerjaan: [],
+  roleList: [
+    {value: 0, text: 'User'},
+    {value: 10, text: 'KK'},
+    {value: 20, text: 'QC'},
+    {value: 30, text: 'Admin'},
+  ]
 })
 
 export const mutations = {
