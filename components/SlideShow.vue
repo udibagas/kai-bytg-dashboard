@@ -16,7 +16,7 @@
 		<el-carousel height="calc(100vh - 210px)" trigger="click" :interval="30000">
 			<el-carousel-item>
 				<BarChart
-					style="margin: calc((100vh - 210px - 450px) / 2) auto; width: 90%"
+					style="margin: calc((100vh - 210px - 440px) / 2) auto; width: 90%"
 					:tahun="tahun"
 					:bulan="bulan"
 					:title="`Program dan Realisasi Bulan ${listBulan[bulan]} Tahun ${tahun}`"
@@ -24,7 +24,7 @@
 			</el-carousel-item>
 			<el-carousel-item>
 				<BarChart
-					style="margin: calc((100vh - 210px - 450px) / 2) auto; width: 90%"
+					style="margin: calc((100vh - 210px - 440px) / 2) auto; width: 90%"
 					:tahun="tahun"
 					:title="`Program dan Realisasi Tahun ${tahun} `"
 				/>
