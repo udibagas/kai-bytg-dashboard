@@ -44,6 +44,7 @@
 			<el-table-column type="index" label="#"></el-table-column>
 			<el-table-column prop="kode" label="Kode"></el-table-column>
 			<el-table-column prop="nama" label="Nama"></el-table-column>
+
 			<el-table-column
 				label="Tampilkan di Grafik"
 				header-align="center"
@@ -59,6 +60,23 @@
 					></i>
 				</template>
 			</el-table-column>
+
+			<el-table-column
+				label="Tampilkan di Slide"
+				header-align="center"
+				align="center"
+			>
+				<template slot-scope="scope">
+					<i
+						:class="
+							scope.row.tampilkan_di_slide
+								? 'el-icon-check text-success'
+								: 'el-icon-close text-danger'
+						"
+					></i>
+				</template>
+			</el-table-column>
+
 			<el-table-column
 				fixed="right"
 				width="40px"

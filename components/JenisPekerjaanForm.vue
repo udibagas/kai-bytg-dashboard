@@ -20,8 +20,13 @@
 					{{ formError.nama.join(", ") }}
 				</div>
 			</el-form-item>
+
 			<el-form-item label="Tampilkan di Grafik">
 				<el-checkbox v-model="formModel.tampilkan_di_grafik">Ya</el-checkbox>
+			</el-form-item>
+
+			<el-form-item label="Tampilkan di Slide">
+				<el-checkbox v-model="formModel.tampilkan_di_slide">Ya</el-checkbox>
 			</el-form-item>
 		</el-form>
 

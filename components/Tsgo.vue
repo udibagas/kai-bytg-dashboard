@@ -63,7 +63,7 @@ export default {
 				bulan: this.bulan,
 				per_page: 10000,
 				page: 1,
-				sort: "updated_at",
+				sort: "tanggal_masuk",
 				order: "descending",
 			};
 

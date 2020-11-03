@@ -9,17 +9,14 @@
 			}
 		"
 	>
-		<!-- <div slot="title" class="p-3 text-white bg-primary">
-			PENCAPAIAN TARGET BULAN {{ listBulan[bulan].toUpperCase() }}
-		</div> -->
-		<el-carousel
-			height="calc(100vh - 200px)"
-			indicator-position="outside"
-			trigger="click"
-			:interval="30000"
-		>
+		<div slot="title" style="background-color: #eaeceb" class="py-3">
+			<img src="/logo.jpeg" alt />
+			<div style="font-size: 24px">UPT BALAI YASA TEGAL</div>
+		</div>
+		<el-carousel height="calc(100vh - 210px)" trigger="click" :interval="30000">
 			<el-carousel-item>
 				<BarChart
+					style="margin: calc((100vh - 210px - 450px) / 2) auto; width: 90%"
 					:tahun="tahun"
 					:bulan="bulan"
 					:title="`Program dan Realisasi Bulan ${listBulan[bulan]} Tahun ${tahun}`"
@@ -27,12 +24,15 @@
 			</el-carousel-item>
 			<el-carousel-item>
 				<BarChart
+					style="margin: calc((100vh - 210px - 450px) / 2) auto; width: 90%"
 					:tahun="tahun"
 					:title="`Program dan Realisasi Tahun ${tahun} `"
 				/>
 			</el-carousel-item>
 			<el-carousel-item
-				v-for="(jp, i) in listJenisPekerjaan"
+				v-for="(jp, i) in listJenisPekerjaan.filter(
+					(p) => !!p.tampilkan_di_slide
+				)"
 				:key="`table${i}`"
 			>
 				<OrderTable :jp="jp" :bulan="bulan" :tahun="tahun" />
