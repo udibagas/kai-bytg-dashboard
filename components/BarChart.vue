@@ -26,7 +26,7 @@ export default {
 			chartOptions: {
 				chart: {
 					type: "column",
-					height: "450px",
+					height: "440px",
 				},
 				title: {
 					text: this.title,
@@ -35,7 +35,7 @@ export default {
 				// 	text: ``,
 				// },
 				legend: {
-					margin: 40,
+					margin: 30,
 					itemStyle: {
 						color: "blue",
 						fontSize: "18px",
