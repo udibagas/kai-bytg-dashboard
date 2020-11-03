@@ -60,11 +60,12 @@ class MenuController extends Controller
                 'icon' => 'el-icon-s-tools',
                 'roles' => [10, 20, 30]
             ],
-            // [
-            //     'label' => 'Jenis Detail Pekerjaan',
-            //     'path' => '/jenis-detail-pekerjaan',
-            //     'icon' => 'el-icon-s-operation'
-            // ],
+            [
+                'label' => 'Item Pekerjaan',
+                'path' => '/item-pekerjaan',
+                'icon' => 'el-icon-s-operation',
+                'roles' => [30]
+            ],
             [
                 'label' => 'Program Kerja',
                 'path' => '/program-kerja',

@@ -9,7 +9,7 @@
 				></el-page-header>
 			</div>
 			<el-form inline @submit.native.prevent>
-				<el-form-item>
+				<el-form-item v-if="[10, 30].includes($auth.user.role)">
 					<div class="input-group" style="margin-top: 5px; width: 160px">
 						<div class="custom-file">
 							<input
@@ -24,7 +24,7 @@
 						</div>
 					</div>
 				</el-form-item>
-				<el-form-item>
+				<el-form-item v-if="[10, 30].includes($auth.user.role)">
 					<el-button
 						size="small"
 						type="primary"
@@ -34,7 +34,7 @@
 						>EXPORT</el-button
 					>
 				</el-form-item>
-				<el-form-item>
+				<el-form-item v-if="[10, 30].includes($auth.user.role)">
 					<el-button
 						size="small"
 						type="primary"

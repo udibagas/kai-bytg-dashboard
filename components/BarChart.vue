@@ -10,8 +10,19 @@ import { Chart } from "highcharts-vue";
 export default {
 	props: ["title", "tahun", "bulan"],
 	components: { Chart },
+	computed: {
+		prosentaseRealisasi() {
+			return (this.totalRealisasi / this.totalProgram).toFixed(2);
+		},
+		prosentaseProses() {
+			return (this.totalProses / this.totalProgram).toFixed(2);
+		},
+	},
 	data() {
 		return {
+			totalProgram: 0,
+			totalRealisasi: 0,
+			totalProses: 0,
 			chartOptions: {
 				chart: {
 					type: "column",
@@ -20,8 +31,16 @@ export default {
 					text: this.title,
 				},
 				// subtitle: {
-				// 	text: "",
+				// 	text: ``,
 				// },
+				legend: {
+					margin: 40,
+					itemStyle: {
+						color: "blue",
+						fontSize: "18px",
+						fontWeight: "normal",
+					},
+				},
 				xAxis: {
 					categories: [],
 					crosshair: true,
@@ -87,19 +106,23 @@ export default {
 			const realisasi = data.map((d) => Number(d.realisasi));
 			const proses = data.map((d) => Number(d.proses));
 
+			this.totalProgram = program.reduce((prev, curr) => prev + curr);
+			this.totalRealisasi = realisasi.reduce((prev, curr) => prev + curr);
+			this.totalProses = proses.reduce((prev, curr) => prev + curr);
+
 			this.chartOptions.series = [
 				{
-					name: `Program (${program.reduce((prev, curr) => prev + curr)})`,
+					name: `Program (${this.totalProgram})`,
 					color: "#79acee",
 					data: program,
 				},
 				{
-					name: `Realisasi (${realisasi.reduce((prev, curr) => prev + curr)})`,
+					name: `Realisasi (${this.totalRealisasi} / ${this.prosentaseRealisasi}%)`,
 					color: "#5bfe79",
 					data: realisasi,
 				},
 				{
-					name: `Proses (${proses.reduce((prev, curr) => prev + curr)})`,
+					name: `Proses (${this.totalProses} / ${this.prosentaseProses}%)`,
 					color: "#e55b00",
 					data: proses,
 				},

@@ -5,7 +5,7 @@
 				<el-page-header
 					title
 					@back="$router.go(-1)"
-					content="Kelola Jenis Detail Pekerjaan"
+					content="Kelola Item Pekerjaan"
 				></el-page-header>
 			</div>
 			<el-form inline @submit.native.prevent>
@@ -20,7 +20,7 @@
 								showForm = true;
 							}
 						"
-						>TAMBAH JENIS DETAIL PEKERJAAN</el-button
+						>TAMBAH ITEM PEKERJAAN</el-button
 					>
 				</el-form-item>
 				<el-form-item>
@@ -41,10 +41,10 @@
 			stripe
 			v-loading="loading"
 		>
-			<el-table-column type="index" label="#"></el-table-column>
+			<el-table-column prop="urutan" label="#" width="50"></el-table-column>
 			<el-table-column prop="nama" label="Nama"></el-table-column>
-			<el-table-column prop="keterangan" label="Keterangan"></el-table-column>
-			<el-table-column
+			<!-- <el-table-column prop="keterangan" label="Keterangan"></el-table-column> -->
+			<!-- <el-table-column
 				label="Sembunyikan di List"
 				header-align="center"
 				align="center"
@@ -52,7 +52,7 @@
 				<template slot-scope="scope">
 					{{ scope.row.hidden ? "Ya" : "Tidak" }}
 				</template>
-			</el-table-column>
+			</el-table-column> -->
 			<el-table-column
 				fixed="right"
 				width="40px"
@@ -92,7 +92,8 @@
 				</template>
 			</el-table-column>
 		</el-table>
-		<JenisDetailPekerjaanForm
+
+		<ItemPekerjaanForm
 			:data="selectedData"
 			:show="showForm"
 			@close-form="showForm = false"

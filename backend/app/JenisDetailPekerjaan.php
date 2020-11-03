@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class JenisDetailPekerjaan extends Model
 {
-    protected $fillable = ['nama', 'keterangan', 'hidden'];
+    protected $fillable = ['nama', 'keterangan', 'hidden', 'urutan'];
 
     protected $casts = ['hidden' => 'boolean'];
 }

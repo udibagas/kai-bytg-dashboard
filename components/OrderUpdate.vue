@@ -13,7 +13,6 @@
 						placeholder="Pilih Pekerjaan"
 						filterable
 						default-first-option
-						allow-create
 					>
 						<el-option
 							v-for="p in listJenisDetailPekerjaan"
@@ -21,12 +20,12 @@
 							:value="p.id"
 							:label="p.nama"
 						>
-							<span style="float: left">{{ p.nama }}</span>
+							<!-- <span style="float: left">{{ p.nama }}</span>
 							<i
 								class="el-icon-circle-close"
 								style="float: right; line-height: 30px"
 								@click.prevent="hideJenisDetailPekerjaan(p.id, p.nama)"
-							></i>
+							></i> -->
 						</el-option>
 					</el-select>
 					<div

@@ -24,6 +24,7 @@ class JenisDetailPekerjaanRequest extends FormRequest
     public function rules()
     {
         return [
+            'urutan' => 'required|numeric',
             'nama' => 'required|max:255',
             'keterangan' => 'max:255'
         ];

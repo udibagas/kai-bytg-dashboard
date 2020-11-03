@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class JenisDetailPekerjaanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:30'])->except(['index']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +24,7 @@ class JenisDetailPekerjaanController extends Controller
             $q->where('nama', 'LIKE', "%{$request->keyword}%");
         })->when($request->hidden === 'false', function ($q) {
             $q->where('hidden', 0);
-        })->orderBy('nama', 'asc')->get();
+        })->orderBy('urutan', 'asc')->get();
     }
 
     /**
