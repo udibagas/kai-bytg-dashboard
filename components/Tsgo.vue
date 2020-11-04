@@ -36,7 +36,7 @@
 import moment from "moment";
 import { mapState } from "vuex";
 export default {
-	props: ["tahun", "bulan", "page", "size"],
+	props: ["tahun", "bulan", "page", "size", "order", "sort"],
 	watch: {
 		bulan(v) {
 			this.getData();
@@ -63,8 +63,8 @@ export default {
 				bulan: this.bulan,
 				per_page: this.per_page,
 				page: this.page,
-				sort: "tanggal_masuk",
-				order: "descending",
+				sort: this.order,
+				order: this.sort,
 			};
 
 			this.$axios

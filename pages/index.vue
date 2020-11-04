@@ -53,7 +53,14 @@
 					<OrderTable :jp="jp" :bulan="bulan" :tahun="tahun" />
 				</el-tab-pane>
 				<el-tab-pane name="tab99" label="TSGO - Tidak Siap Guna Operasi">
-					<Tsgo :bulan="bulan" :tahun="tahun" :page="1" :size="10000" />
+					<Tsgo
+						:bulan="bulan"
+						:tahun="tahun"
+						:page="1"
+						:size="10000"
+						order="tanggal_masuk"
+						sort="descending"
+					/>
 				</el-tab-pane>
 			</el-tabs>
 		</el-card>

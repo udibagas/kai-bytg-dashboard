@@ -42,10 +42,24 @@
 				<OrderTable :jp="jp" :bulan="bulan" :tahun="tahun" />
 			</el-carousel-item>
 			<el-carousel-item>
-				<Tsgo :bulan="bulan" :tahun="tahun" :page="1" :size="10" />
+				<Tsgo
+					:bulan="bulan"
+					:tahun="tahun"
+					:page="1"
+					:size="10"
+					order="updated_at"
+					sort="descending"
+				/>
 			</el-carousel-item>
 			<el-carousel-item>
-				<Tsgo :bulan="bulan" :tahun="tahun" :page="2" :size="10" />
+				<Tsgo
+					:bulan="bulan"
+					:tahun="tahun"
+					:page="2"
+					:size="10"
+					order="updated_at"
+					sort="descending"
+				/>
 			</el-carousel-item>
 		</el-carousel>
 	</el-dialog>
