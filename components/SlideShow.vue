@@ -11,8 +11,13 @@
 		<div slot="title" style="background-color: #eaeceb" class="d-flex">
 			<img src="/logo.jpeg" alt />
 			<div
-				style="font-size: 30px; line-height: 49px; font-weight: bold"
 				class="flex-grow-1 text-center"
+				style="
+					font-size: 30px;
+					line-height: 49px;
+					font-weight: bold;
+					margin-left: -102px;
+				"
 			>
 				UPT BALAI YASA TEGAL
 			</div>
