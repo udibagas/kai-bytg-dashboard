@@ -1,7 +1,6 @@
 <template>
 	<el-dialog
 		fullscreen
-		center
 		:visible.sync="show"
 		:before-close="
 			(done) => {
@@ -9,9 +8,14 @@
 			}
 		"
 	>
-		<div slot="title" style="background-color: #eaeceb" class="py-3">
+		<div slot="title" style="background-color: #eaeceb" class="d-flex">
 			<img src="/logo.jpeg" alt />
-			<div style="font-size: 24px">UPT BALAI YASA TEGAL</div>
+			<div
+				style="font-size: 30px; line-height: 49px; font-weight: bold"
+				class="flex-grow-1 text-center"
+			>
+				UPT BALAI YASA TEGAL
+			</div>
 		</div>
 		<el-carousel height="calc(100vh - 210px)" trigger="click" :interval="30000">
 			<el-carousel-item>
@@ -38,7 +42,10 @@
 				<OrderTable :jp="jp" :bulan="bulan" :tahun="tahun" />
 			</el-carousel-item>
 			<el-carousel-item>
-				<Tsgo :bulan="bulan" :tahun="tahun" />
+				<Tsgo :bulan="bulan" :tahun="tahun" :page="1" :size="10" />
+			</el-carousel-item>
+			<el-carousel-item>
+				<Tsgo :bulan="bulan" :tahun="tahun" :page="2" :size="10" />
 			</el-carousel-item>
 		</el-carousel>
 	</el-dialog>
