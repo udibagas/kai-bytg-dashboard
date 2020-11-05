@@ -367,11 +367,13 @@ export default {
 						jenis_sarana: r[1],
 						nomor_sarana: r[2],
 						dipo: r[3],
-						jenis_pekerjaan: r[5],
-						tanggal_masuk: r[6],
-						tanggal_keluar: r[7] || null,
-						prosentase_pekerjaan: r[9] || 0,
-						keterangan: r[10] || " ",
+						jenis_pekerjaan: r[4],
+						by_pa_akhir: r[5] || null,
+						tgl_pa_akhir: r[6] || null,
+						tanggal_masuk: r[7] || null,
+						tanggal_keluar: r[8] || null,
+						keterangan: r[9] || " ",
+						prosentase_pekerjaan: r[10] || 0,
 					};
 				});
 

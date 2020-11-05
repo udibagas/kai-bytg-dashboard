@@ -293,7 +293,8 @@ class OrderController extends Controller
                 'Tgl' => $item->tgl_pa_akhir,
                 'Masuk' => $item->tanggal_masuk,
                 'Keluar' => $item->tanggal_keluar,
-                'Keterangan' => $item->keterangan ?: ''
+                'Keterangan' => $item->keterangan ?: '',
+                '%' => $item->prosentase_pekerjaan / 100
             ];
         });
     }

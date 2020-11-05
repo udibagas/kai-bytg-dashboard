@@ -23,7 +23,7 @@
 			</div>
 		</div>
 		<el-carousel height="calc(100vh - 210px)" trigger="click" :interval="10000">
-			<el-carousel-item>
+			<el-carousel-item class="slide1">
 				<BarChart
 					style="margin: calc((100vh - 210px - 440px) / 2) auto; width: 90%"
 					:tahun="tahun"
@@ -31,7 +31,7 @@
 					:title="`Program dan Realisasi Bulan ${listBulan[bulan]} Tahun ${tahun}`"
 				/>
 			</el-carousel-item>
-			<el-carousel-item>
+			<el-carousel-item class="slide2">
 				<BarChart
 					style="margin: calc((100vh - 210px - 440px) / 2) auto; width: 90%"
 					:tahun="tahun"
@@ -46,7 +46,7 @@
 			>
 				<OrderTable :jp="jp" :bulan="bulan" :tahun="tahun" />
 			</el-carousel-item> -->
-			<el-carousel-item>
+			<el-carousel-item class="slide3">
 				<Tsgo
 					:bulan="bulan"
 					:tahun="tahun"
@@ -56,7 +56,7 @@
 					order="descending"
 				/>
 			</el-carousel-item>
-			<el-carousel-item>
+			<el-carousel-item class="slide3">
 				<Tsgo
 					:bulan="bulan"
 					:tahun="tahun"
@@ -86,3 +86,23 @@ export default {
 	},
 };
 </script>
+
+<style lang="css" scoped>
+/* .slide1 {
+	background-image: url("/slide1.jpeg");
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.slide2 {
+	background-image: url("/slide2.jpeg");
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.slide3 {
+	background-image: url("/slide3.jpeg");
+	background-size: cover;
+	background-repeat: no-repeat;
+} */
+</style>
