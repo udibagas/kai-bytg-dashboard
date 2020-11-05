@@ -58,8 +58,8 @@
 						:tahun="tahun"
 						:page="1"
 						:size="10000"
-						order="tanggal_masuk"
-						sort="descending"
+						sort="tanggal_masuk"
+						order="descending"
 					/>
 				</el-tab-pane>
 			</el-tabs>

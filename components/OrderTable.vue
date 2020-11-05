@@ -60,12 +60,19 @@ export default {
 				jenis_pekerjaan_id: [this.jp.id],
 				status: this.jp.kode == "PB" ? null : [20], // kalau PB tampilkan semua, lainnya cuma yg sudah selesai
 				tahun: this.tahun,
-				bulan: this.bulan,
 				per_page: 10000,
 				page: 1,
 				sort: "tanggal_masuk",
 				order: "descending",
 			};
+
+			if (this.jp.kode == "PB") {
+				// untuk PB yg tanggal keluar dan masuknya sesuai bulan dipilih
+				params.bulan = this.bulan;
+			} else {
+				// untuk P.24 dan P.48 yang tanggal keluarnya sesuai bulan dipilih
+				params.bulan_keluar = this.bulan;
+			}
 
 			this.$axios
 				.get("/api/order", { params })

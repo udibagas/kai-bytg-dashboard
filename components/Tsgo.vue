@@ -60,7 +60,7 @@ export default {
 			const params = {
 				status: [10],
 				tahun: this.tahun,
-				bulan: this.bulan,
+				bulan_masuk: this.bulan,
 				per_page: this.size,
 				page: this.page,
 				sort: this.sort,

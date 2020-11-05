@@ -22,7 +22,7 @@
 				UPT BALAI YASA TEGAL
 			</div>
 		</div>
-		<el-carousel height="calc(100vh - 210px)" trigger="click" :interval="30000">
+		<el-carousel height="calc(100vh - 210px)" trigger="click" :interval="10000">
 			<el-carousel-item>
 				<BarChart
 					style="margin: calc((100vh - 210px - 440px) / 2) auto; width: 90%"
@@ -52,8 +52,8 @@
 					:tahun="tahun"
 					:page="1"
 					:size="10"
-					order="updated_at"
-					sort="descending"
+					sort="updated_at"
+					order="descending"
 				/>
 			</el-carousel-item>
 			<el-carousel-item>
@@ -62,8 +62,8 @@
 					:tahun="tahun"
 					:page="2"
 					:size="10"
-					order="updated_at"
-					sort="descending"
+					sort="updated_at"
+					order="descending"
 				/>
 			</el-carousel-item>
 		</el-carousel>

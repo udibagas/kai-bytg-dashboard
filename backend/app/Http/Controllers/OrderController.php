@@ -59,6 +59,10 @@ class OrderController extends Controller
                 $q->whereMonth('tanggal_masuk', $request->bulan)
                     ->orWhereMonth('tanggal_keluar', $request->bulan);
             });
+        })->when($request->bulan_keluar, function ($q) use ($request) {
+            $q->whereMonth('tanggal_keluar', $request->bulan_keluar);
+        })->when($request->bulan_masuk, function ($q) use ($request) {
+            $q->whereMonth('tanggal_masuk', $request->bulan_masuk);
         })->when($request->jenis_pekerjaan, function ($q) use ($request) {
             $q->whereHas('jenisPekerjaan', function ($q) use ($request) {
                 $q->whereIn('kode', $request->jenis_pekerjaan);
