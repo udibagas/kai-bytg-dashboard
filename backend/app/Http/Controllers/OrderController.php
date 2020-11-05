@@ -59,6 +59,10 @@ class OrderController extends Controller
                 $q->whereMonth('tanggal_masuk', $request->bulan)
                     ->orWhereMonth('tanggal_keluar', $request->bulan);
             });
+        })->when($request->jenis_pekerjaan, function ($q) use ($request) {
+            $q->whereHas('jenisPekerjaan', function ($q) use ($request) {
+                $q->whereIn('kode', $request->jenis_pekerjaan);
+            });
         })->orderBy($request->sort ?: 'tanggal_masuk', $request->order == 'ascending' ? 'asc' : 'desc')->paginate($request->per_page);
 
         return new OrderCollection($resource);
@@ -276,11 +280,13 @@ class OrderController extends Controller
             $q->whereMonth('tanggal_masuk', $request->bulan);
         })->orderBy('updated_at', 'desc')->get()->map(function ($item, $index) {
             return [
-                'NO' => $index + 1,
+                'No' => $index + 1,
                 'Jenis Sarana' => $item->jenisSarana->kode,
                 'Nomor Sarana' => $item->sarana ? $item->sarana->nomor : '',
                 'Dipo' => $item->dipo->kode,
                 'Pekerjaan' => $item->jenisPekerjaan->kode,
+                'BY' => $item->by_pa_akhir,
+                'Tgl' => $item->tgl_pa_akhir,
                 'Masuk' => $item->tanggal_masuk,
                 'Keluar' => $item->tanggal_keluar,
                 'Keterangan' => $item->keterangan ?: ''

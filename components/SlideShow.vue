@@ -38,14 +38,14 @@
 					:title="`Program dan Realisasi Tahun ${tahun} `"
 				/>
 			</el-carousel-item>
-			<el-carousel-item
+			<!-- <el-carousel-item
 				v-for="(jp, i) in listJenisPekerjaan.filter(
 					(p) => !!p.tampilkan_di_slide
 				)"
 				:key="`table${i}`"
 			>
 				<OrderTable :jp="jp" :bulan="bulan" :tahun="tahun" />
-			</el-carousel-item>
+			</el-carousel-item> -->
 			<el-carousel-item>
 				<Tsgo
 					:bulan="bulan"

@@ -13,7 +13,7 @@
 				<th>DIPO</th>
 				<th>TGL MASUK</th>
 				<th>TGL KELUAR</th>
-				<th>%</th>
+				<th v-if="jp.kode == 'PB'">%</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -24,7 +24,7 @@
 				<td>{{ d.dipo }}</td>
 				<td>{{ readableDate(d.tanggal_masuk) }}</td>
 				<td>{{ readableDate(d.tanggal_keluar) }}</td>
-				<td>
+				<td v-if="jp.kode == 'PB'">
 					<el-progress :percentage="d.prosentase_pekerjaan"></el-progress>
 				</td>
 			</tr>
@@ -58,7 +58,7 @@ export default {
 		getData() {
 			const params = {
 				jenis_pekerjaan_id: [this.jp.id],
-				// status: [10],
+				status: this.jp.kode == "PB" ? null : [20], // kalau PB tampilkan semua, lainnya cuma yg sudah selesai
 				tahun: this.tahun,
 				bulan: this.bulan,
 				per_page: 10000,

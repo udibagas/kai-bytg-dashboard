@@ -61,10 +61,11 @@ export default {
 				status: [10],
 				tahun: this.tahun,
 				bulan: this.bulan,
-				per_page: this.per_page,
+				per_page: this.size,
 				page: this.page,
-				sort: this.order,
-				order: this.sort,
+				sort: this.sort,
+				order: this.order,
+				jenis_pekerjaan: ["P.24", "P.48"],
 			};
 
 			this.$axios
