@@ -155,6 +155,8 @@ class OrderController extends Controller
                     'jenis_sarana_id' => $jenisSarana->id,
                     'dipo_id' => $dipo->id,
                     'jenis_pekerjaan_id' => $jenisPekerjaan->id,
+                    'by_pa_akhir' => $row['by_pa_akhir'],
+                    'tgl_pa_akhir' => $this->parseExcelDate($row['tgl_pa_akhir']),
                     'tanggal_masuk' => $this->parseExcelDate($row['tanggal_masuk']),
                     'tanggal_keluar' => $this->parseExcelDate(isset($row['tanggal_keluar']) ? $row['tanggal_keluar'] : null),
                     'keterangan' => $row['keterangan'],
@@ -289,10 +291,10 @@ class OrderController extends Controller
                 'Nomor Sarana' => $item->sarana ? $item->sarana->nomor : '',
                 'Dipo' => $item->dipo->kode,
                 'Pekerjaan' => $item->jenisPekerjaan->kode,
-                'BY' => $item->by_pa_akhir,
-                'Tgl' => $item->tgl_pa_akhir,
+                'BY' => $item->by_pa_akhir ?: '',
+                'Tgl' => $item->tgl_pa_akhir ?: '',
                 'Masuk' => $item->tanggal_masuk,
-                'Keluar' => $item->tanggal_keluar,
+                'Keluar' => $item->tanggal_keluar ?: '',
                 'Keterangan' => $item->keterangan ?: '',
                 '%' => $item->prosentase_pekerjaan / 100
             ];
