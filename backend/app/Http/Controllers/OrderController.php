@@ -108,10 +108,6 @@ class OrderController extends Controller
     {
         $request->validate(['rows' => 'required']);
 
-        // return array_filter($request->rows, function ($row) {
-        //     return !$this->parseExcelDate($row['tanggal_masuk']);
-        // });
-
         DB::beginTransaction();
 
         foreach ($request->rows as $row) {
@@ -150,7 +146,7 @@ class OrderController extends Controller
                     'tanggal_masuk' => $this->parseExcelDate($row['tanggal_masuk'])
                 ],
                 [
-                    'nomor' => '-',
+                    'nomor' => $row['nomor'],
                     'sarana_id' => $sarana->id,
                     'jenis_sarana_id' => $jenisSarana->id,
                     'dipo_id' => $dipo->id,
@@ -287,6 +283,7 @@ class OrderController extends Controller
         })->orderBy('updated_at', 'desc')->get()->map(function ($item, $index) {
             return [
                 'No' => $index + 1,
+                'Order' => $item->nomor,
                 'Jenis Sarana' => $item->jenisSarana->kode,
                 'Nomor Sarana' => $item->sarana ? $item->sarana->nomor : '',
                 'Dipo' => $item->dipo->kode,

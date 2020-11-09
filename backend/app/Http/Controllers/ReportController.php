@@ -24,21 +24,21 @@ class ReportController extends Controller
                     ->where('jenis_sarana_id', $item->id)
                     ->where('tahun', $request->tahun)
                     ->where('bulan', $request->bulan)
-                    ->pluck('target')->sum(),
+                    ->chart()->pluck('target')->sum(),
 
                 'realisasi' => Order::chart()
                     ->where('jenis_sarana_id', $item->id)
                     ->where('status', Order::STATUS_SELESAI)
                     ->whereYear('tanggal_keluar', $request->tahun)
                     ->whereMonth('tanggal_keluar', $request->bulan)
-                    ->count(),
+                    ->chart()->count(),
 
                 'proses' => Order::chart()
                     ->where('jenis_sarana_id', $item->id)
                     ->where('status', '!=', Order::STATUS_SELESAI)
                     ->whereYear('tanggal_masuk', $request->tahun)
                     ->whereMonth('tanggal_masuk', $request->bulan)
-                    ->count(),
+                    ->chart()->count(),
             ];
         });
     }
@@ -56,19 +56,19 @@ class ReportController extends Controller
                 'program' => ProgramKerja::chart()
                     ->where('tahun', $request->tahun)
                     ->where('bulan', $bulan)
-                    ->pluck('target')->sum(),
+                    ->chart()->pluck('target')->sum(),
 
                 'realisasi' => Order::chart()
                     ->where('status', Order::STATUS_SELESAI)
                     ->whereYear('tanggal_keluar', $request->tahun)
                     ->whereMonth('tanggal_keluar', $bulan)
-                    ->count(),
+                    ->chart()->count(),
 
                 'proses' => Order::chart()
                     ->where('status', '!=', Order::STATUS_SELESAI)
                     ->whereYear('tanggal_masuk', $request->tahun)
                     ->whereMonth('tanggal_masuk', $bulan)
-                    ->count(),
+                    ->chart()->count(),
             ];
         }
 
