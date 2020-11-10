@@ -6,6 +6,7 @@
 
 <script>
 import { Chart } from "highcharts-vue";
+import moment from "moment";
 
 export default {
 	props: ["title", "tahun", "bulan"],
@@ -31,9 +32,12 @@ export default {
 				title: {
 					text: this.title,
 				},
-				// subtitle: {
-				// 	text: ``,
-				// },
+				subtitle: {
+					text: moment().format("DD MMM YYYY"),
+					style: {
+						fontSize: "15px",
+					},
+				},
 				legend: {
 					margin: 30,
 					itemStyle: {
