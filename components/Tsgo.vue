@@ -58,7 +58,7 @@ export default {
 		},
 		getData() {
 			const params = {
-				status: [10],
+				status: [0, 10],
 				tahun: this.tahun,
 				bulan_masuk: this.bulan,
 				per_page: this.size,
