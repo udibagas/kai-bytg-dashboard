@@ -96,7 +96,8 @@
 				label="#"
 				:index="pagination.from"
 			></el-table-column>
-			<el-table-column
+
+			<!-- <el-table-column
 				label="Status"
 				min-width="120"
 				align-header="center"
@@ -112,20 +113,8 @@
 						>{{ scope.row.status_label }}</el-tag
 					>
 				</template>
-			</el-table-column>
-			<el-table-column
-				label="Prosentase"
-				min-width="150"
-				align-header="center"
-				align="center"
-				sortable="custom"
-			>
-				<template slot-scope="scope">
-					<el-progress
-						:percentage="scope.row.prosentase_pekerjaan"
-					></el-progress>
-				</template>
-			</el-table-column>
+			</el-table-column> -->
+
 			<el-table-column
 				prop="nomor"
 				label="Nomor Order"
@@ -134,6 +123,7 @@
 				align="center"
 				sortable="custom"
 			></el-table-column>
+
 			<el-table-column
 				label="Nomor Sarana"
 				min-width="140"
@@ -148,6 +138,29 @@
 			</el-table-column>
 
 			<el-table-column
+				prop="dipo"
+				label="Dipo"
+				min-width="80"
+				align-header="center"
+				align="center"
+				column-key="dipo_id"
+				:filters="filterDipo"
+			></el-table-column>
+
+			<el-table-column
+				prop="mulai_dinas"
+				label="Mulai Dinas"
+				min-width="120"
+				align-header="center"
+				align="center"
+				sortable="custom"
+			>
+				<template slot-scope="scope">
+					{{ readableDate(scope.row.mulai_dinas) }}
+				</template>
+			</el-table-column>
+
+			<el-table-column
 				prop="jenis_pekerjaan"
 				label="Pekerjaan"
 				min-width="100"
@@ -155,6 +168,16 @@
 				align="center"
 				column-key="jenis_pekerjaan_id"
 				:filters="filterJenisPekerjaan"
+			></el-table-column>
+
+			<el-table-column
+				prop="bogie"
+				label="Jenis Bogie"
+				min-width="100"
+				align-header="center"
+				align="center"
+				column-key="bogie_id"
+				:filters="filterBogie"
 			></el-table-column>
 
 			<el-table-column label="PA Akhir" header-align="center">
@@ -177,6 +200,7 @@
 					</template>
 				</el-table-column>
 			</el-table-column>
+
 			<el-table-column
 				prop="tanggal_masuk"
 				label="Tgl Masuk"
@@ -189,6 +213,7 @@
 					{{ readableDate(scope.row.tanggal_masuk) }}
 				</template>
 			</el-table-column>
+
 			<el-table-column
 				prop="tanggal_keluar"
 				label="Tgl Keluar"
@@ -201,20 +226,33 @@
 					{{ readableDate(scope.row.tanggal_keluar) }}
 				</template>
 			</el-table-column>
+
 			<el-table-column
-				prop="dipo"
-				label="Dipo"
-				min-width="80"
+				prop="posisi"
+				label="Posisi"
+				min-width="150px"
+			></el-table-column>
+
+			<el-table-column
+				label="Progress"
+				min-width="150"
 				align-header="center"
 				align="center"
-				column-key="dipo_id"
-				:filters="filterDipo"
-			></el-table-column>
+				sortable="custom"
+			>
+				<template slot-scope="scope">
+					<el-progress
+						:percentage="scope.row.prosentase_pekerjaan"
+					></el-progress>
+				</template>
+			</el-table-column>
+
 			<el-table-column
 				prop="keterangan"
 				label="Keterangan"
 				min-width="150px"
 			></el-table-column>
+
 			<el-table-column
 				fixed="right"
 				width="40px"
@@ -327,7 +365,7 @@ export default {
 			"filterJenisPekerjaan",
 			"filterJenisSarana",
 			"filterDipo",
-			"filterJalur",
+			"filterBogie",
 		]),
 	},
 	methods: {

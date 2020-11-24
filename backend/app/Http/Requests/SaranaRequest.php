@@ -28,6 +28,7 @@ class SaranaRequest extends FormRequest
             'nomor_lama' => 'max:255',
             'jenis_sarana_id' => 'required',
             'dipo_id' => 'required',
+            'bogie_id' => 'required',
             'keterangan' => 'max:255'
         ];
     }

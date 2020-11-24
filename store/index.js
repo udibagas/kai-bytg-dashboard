@@ -4,6 +4,7 @@ export const state = () => ({
   listSarana: [],
   listJenisSarana: [],
   listJenisPekerjaan: [],
+  listBogie: [],
   listJenisDetailPekerjaan: [],
   listBulan: "-,Januari,Februari,Maret,April,Mei,Juni,Juli,Agustus,September,Oktober,November,Desember".split(
     ","
@@ -13,6 +14,7 @@ export const state = () => ({
   filterJalur: [],
   filterJenisSarana: [],
   filterJenisPekerjaan: [],
+  filterBogie: [],
   roleList: [
     {value: 0, text: 'User'},
     {value: 10, text: 'KK'},
@@ -55,6 +57,16 @@ export const mutations = {
   setListJenisPekerjaan(state, data) {
     state.listJenisPekerjaan = data;
     state.filterJenisPekerjaan = data.map(l => {
+      return {
+        value: l.id,
+        text: l.kode
+      }
+    })
+  },
+
+  setListBogie(state, data) {
+    state.listBogie = data;
+    state.filterBogie = data.map(l => {
       return {
         value: l.id,
         text: l.kode
@@ -107,6 +119,15 @@ export const actions = {
       data
     } = await this.$axios.get('/api/jenisPekerjaan')
     commit('setListJenisPekerjaan', data)
+  },
+
+  async getListBogie({
+    commit
+  }) {
+    let {
+      data
+    } = await this.$axios.get('/api/bogie')
+    commit('setListBogie', data)
   },
 
   async getListJenisDetailPekerjaan({

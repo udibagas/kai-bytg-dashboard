@@ -43,6 +43,9 @@
 		>
 			<el-table-column prop="urutan" label="#" width="50"></el-table-column>
 			<el-table-column prop="nama" label="Nama"></el-table-column>
+			<el-table-column label="Bobot" align="center" header-align="center">
+				<template slot-scope="scope"> {{ scope.row.bobot }}% </template>
+			</el-table-column>
 			<!-- <el-table-column prop="keterangan" label="Keterangan"></el-table-column> -->
 			<!-- <el-table-column
 				label="Sembunyikan di List"

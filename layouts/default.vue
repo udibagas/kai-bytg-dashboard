@@ -97,7 +97,7 @@ export default {
 		this.$store.dispatch("getListJenisSarana");
 		this.$store.dispatch("getListJenisPekerjaan");
 		this.$store.dispatch("getListDipo");
-		this.$store.dispatch("getListJalur");
+		this.$store.dispatch("getListBogie");
 		this.$store.dispatch("getListJenisDetailPekerjaan");
 	},
 };

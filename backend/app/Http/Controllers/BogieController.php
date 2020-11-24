@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class BogieController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:10,20,30'])->except(['index']);
+    }
+
     /**
      * Display a listing of the resource.
      *

@@ -9,28 +9,68 @@
 		<el-form label-position="left" label-width="200px">
 			<el-form-item label="Nomor" :class="formError.nomor ? 'is-error' : ''">
 				<el-input v-model="formModel.nomor" placeholder="Nomor"></el-input>
-				<div class="el-form-item__error" v-if="formError.nomor">{{formError.nomor.join(', ')}}</div>
+				<div class="el-form-item__error" v-if="formError.nomor">
+					{{ formError.nomor.join(", ") }}
+				</div>
 			</el-form-item>
 
-			<el-form-item label="Nomor Lama" :class="formError.nomor_lama ? 'is-error' : ''">
-				<el-input v-model="formModel.nomor_lama" placeholder="Nomor Lama"></el-input>
-				<div class="el-form-item__error" v-if="formError.nomor_lama">{{formError.nomor_lama.join(', ')}}</div>
+			<el-form-item
+				label="Nomor Lama"
+				:class="formError.nomor_lama ? 'is-error' : ''"
+			>
+				<el-input
+					v-model="formModel.nomor_lama"
+					placeholder="Nomor Lama"
+				></el-input>
+				<div class="el-form-item__error" v-if="formError.nomor_lama">
+					{{ formError.nomor_lama.join(", ") }}
+				</div>
 			</el-form-item>
 
-			<el-form-item label="Jenis Sarana" :class="formError.jenis_sarana_id ? 'is-error' : ''">
+			<el-form-item
+				label="Jenis Sarana"
+				:class="formError.jenis_sarana_id ? 'is-error' : ''"
+			>
 				<el-select
 					v-model="formModel.jenis_sarana_id"
 					placeholder="Jenis Sarana"
 					filterable
 					default-first-option
-					style="width:100%"
+					style="width: 100%"
 				>
-					<el-option v-for="js in listJenisSarana" :key="js.id" :label="js.nama" :value="js.id"></el-option>
+					<el-option
+						v-for="js in listJenisSarana"
+						:key="js.id"
+						:label="js.nama"
+						:value="js.id"
+					></el-option>
 				</el-select>
-				<div
-					class="el-form-item__error"
-					v-if="formError.jenis_sarana_id"
-				>{{formError.jenis_sarana_id.join(', ')}}</div>
+				<div class="el-form-item__error" v-if="formError.jenis_sarana_id">
+					{{ formError.jenis_sarana_id.join(", ") }}
+				</div>
+			</el-form-item>
+
+			<el-form-item
+				label="Jenis Bogie"
+				:class="formError.bogie_id ? 'is-error' : ''"
+			>
+				<el-select
+					v-model="formModel.bogie_id"
+					placeholder="Jenis Bogie"
+					style="width: 100%"
+					filterable
+					default-first-option
+				>
+					<el-option
+						v-for="js in listBogie"
+						:key="js.id"
+						:label="`${js.kode} - ${js.nama}`"
+						:value="js.id"
+					></el-option>
+				</el-select>
+				<div class="el-form-item__error" v-if="formError.bogie_id">
+					{{ formError.bogie_id.join(", ") }}
+				</div>
 			</el-form-item>
 
 			<el-form-item label="Dipo" :class="formError.dipo_id ? 'is-error' : ''">
@@ -39,25 +79,45 @@
 					placeholder="Dipo"
 					filterable
 					default-first-option
-					style="width:100%"
+					style="width: 100%"
 				>
-					<el-option v-for="dipo in listDipo" :key="dipo.id" :label="dipo.nama" :value="dipo.id"></el-option>
+					<el-option
+						v-for="dipo in listDipo"
+						:key="dipo.id"
+						:label="dipo.nama"
+						:value="dipo.id"
+					></el-option>
 				</el-select>
-				<div class="el-form-item__error" v-if="formError.dipo_id">{{formError.dipo_id.join(', ')}}</div>
+				<div class="el-form-item__error" v-if="formError.dipo_id">
+					{{ formError.dipo_id.join(", ") }}
+				</div>
 			</el-form-item>
 
-			<el-form-item label="Keterangan" :class="formError.keterangan ? 'is-error' : ''">
-				<el-input type="textarea" :rows="3" v-model="formModel.keterangan" placeholder="Keterangan"></el-input>
-				<div class="el-form-item__error" v-if="formError.keterangan">{{formError.keterangan.join(', ')}}</div>
+			<el-form-item
+				label="Keterangan"
+				:class="formError.keterangan ? 'is-error' : ''"
+			>
+				<el-input
+					type="textarea"
+					:rows="3"
+					v-model="formModel.keterangan"
+					placeholder="Keterangan"
+				></el-input>
+				<div class="el-form-item__error" v-if="formError.keterangan">
+					{{ formError.keterangan.join(", ") }}
+				</div>
 			</el-form-item>
 		</el-form>
 		<div slot="footer">
-			<el-button icon="el-icon-error" type="primary" plain @click="closeForm">BATAL</el-button>
+			<el-button icon="el-icon-error" type="primary" plain @click="closeForm"
+				>BATAL</el-button
+			>
 			<el-button
 				icon="el-icon-success"
 				type="primary"
-				@click="() => !!formModel.id ? update() : store()"
-			>SIMPAN</el-button>
+				@click="() => (!!formModel.id ? update() : store())"
+				>SIMPAN</el-button
+			>
 		</div>
 	</el-dialog>
 </template>
@@ -71,7 +131,7 @@ export default {
 		formModel() {
 			return this.data;
 		},
-		...mapState(["listJenisSarana", "listDipo"]),
+		...mapState(["listJenisSarana", "listDipo", "listBogie"]),
 	},
 	data() {
 		return {

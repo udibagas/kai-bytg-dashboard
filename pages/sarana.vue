@@ -48,11 +48,16 @@
 			></el-table-column>
 			<el-table-column prop="nomor" label="Nomor"></el-table-column>
 			<el-table-column prop="nomor_lama" label="Nomor Lama"></el-table-column>
+
 			<el-table-column
 				prop="jenis_sarana"
 				label="Jenis Sarana"
 			></el-table-column>
+
+			<el-table-column prop="bogie" label="Jenis Bogie"></el-table-column>
+
 			<el-table-column prop="dipo" label="Dipo"></el-table-column>
+			<el-table-column prop="keterangan" label="Keterangan"></el-table-column>
 			<el-table-column
 				fixed="right"
 				width="40px"

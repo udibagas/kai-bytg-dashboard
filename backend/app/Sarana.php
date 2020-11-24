@@ -11,6 +11,7 @@ class Sarana extends Model
         'nomor_lama',
         'jenis_sarana_id',
         'dipo_id',
+        'bogie_id',
         'keterangan'
     ];
 
@@ -22,5 +23,10 @@ class Sarana extends Model
     public function jenisSarana()
     {
         return $this->belongsTo(JenisSarana::class);
+    }
+
+    public function bogie()
+    {
+        return $this->belongsTo(Bogie::class);
     }
 }

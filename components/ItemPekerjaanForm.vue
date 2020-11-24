@@ -25,6 +25,20 @@
 				</div>
 			</el-form-item>
 
+			<el-form-item
+				label="Bobot (%)"
+				:class="formError.bobot ? 'is-error' : ''"
+			>
+				<el-input
+					type="number"
+					v-model="formModel.bobot"
+					placeholder="Bobot (%)"
+				></el-input>
+				<div class="el-form-item__error" v-if="formError.bobot">
+					{{ formError.bobot.join(", ") }}
+				</div>
+			</el-form-item>
+
 			<!-- <el-form-item
 				label="Keterangan"
 				:class="formError.keterangan ? 'is-error' : ''"

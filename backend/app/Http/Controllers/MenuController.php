@@ -33,11 +33,12 @@ class MenuController extends Controller
                 'icon' => 'el-icon-collection-tag',
                 'roles' => [10, 20, 30]
             ],
-            // [
-            //     'label' => 'Bogie',
-            //     'path' => '/bogie',
-            //     'icon' => 'el-icon-truck'
-            // ],
+            [
+                'label' => 'Bogie',
+                'path' => '/bogie',
+                'icon' => 'el-icon-truck',
+                'roles' => [10, 20, 30]
+            ],
             [
                 'label' => 'Dipo',
                 'path' => '/dipo',

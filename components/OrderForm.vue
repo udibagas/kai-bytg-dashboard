@@ -21,22 +21,6 @@
 			</el-form-item>
 
 			<el-form-item
-				label="Tanggal Masuk"
-				:class="formError.tanggal_masuk ? 'is-error' : ''"
-			>
-				<el-date-picker
-					v-model="formModel.tanggal_masuk"
-					placeholder="Tanggal Masuk"
-					format="dd-MMM-yyyy"
-					value-format="yyyy-MM-dd"
-					style="width: 100%"
-				></el-date-picker>
-				<div class="el-form-item__error" v-if="formError.tanggal_masuk">
-					{{ formError.tanggal_masuk.join(", ") }}
-				</div>
-			</el-form-item>
-
-			<el-form-item
 				label="Nomor Sarana"
 				:class="formError.sarana_id ? 'is-error' : ''"
 			>
@@ -84,6 +68,29 @@
 				</div>
 			</el-form-item>
 
+			<el-form-item
+				label="Jenis Bogie"
+				:class="formError.bogie_id ? 'is-error' : ''"
+			>
+				<el-select
+					v-model="formModel.bogie_id"
+					placeholder="Jenis Bogie"
+					style="width: 100%"
+					filterable
+					default-first-option
+				>
+					<el-option
+						v-for="js in listBogie"
+						:key="js.id"
+						:label="`${js.kode} - ${js.nama}`"
+						:value="js.id"
+					></el-option>
+				</el-select>
+				<div class="el-form-item__error" v-if="formError.bogie_id">
+					{{ formError.bogie_id.join(", ") }}
+				</div>
+			</el-form-item>
+
 			<el-form-item label="Dipo" :class="formError.dipo_id ? 'is-error' : ''">
 				<el-select
 					v-model="formModel.dipo_id"
@@ -101,6 +108,22 @@
 				</el-select>
 				<div class="el-form-item__error" v-if="formError.dipo_id">
 					{{ formError.dipo_id.join(", ") }}
+				</div>
+			</el-form-item>
+
+			<el-form-item
+				label="Mulai Dinas"
+				:class="formError.mulai_dinas ? 'is-error' : ''"
+			>
+				<el-date-picker
+					v-model="formModel.mulai_dinas"
+					placeholder="Mulai Dinas"
+					format="dd-MMM-yyyy"
+					value-format="yyyy-MM-dd"
+					style="width: 100%"
+				></el-date-picker>
+				<div class="el-form-item__error" v-if="formError.mulai_dinas">
+					{{ formError.mulai_dinas.join(", ") }}
 				</div>
 			</el-form-item>
 
@@ -145,6 +168,22 @@
 			</el-form-item>
 
 			<el-form-item
+				label="Tanggal Masuk"
+				:class="formError.tanggal_masuk ? 'is-error' : ''"
+			>
+				<el-date-picker
+					v-model="formModel.tanggal_masuk"
+					placeholder="Tanggal Masuk"
+					format="dd-MMM-yyyy"
+					value-format="yyyy-MM-dd"
+					style="width: 100%"
+				></el-date-picker>
+				<div class="el-form-item__error" v-if="formError.tanggal_masuk">
+					{{ formError.tanggal_masuk.join(", ") }}
+				</div>
+			</el-form-item>
+
+			<el-form-item
 				label="Keterangan"
 				:class="formError.keterangan ? 'is-error' : ''"
 			>
@@ -185,9 +224,9 @@ export default {
 		...mapState([
 			"listJenisSarana",
 			"listDipo",
-			"listJalur",
 			"listJenisPekerjaan",
 			"listSarana",
+			"listBogie",
 		]),
 	},
 	data() {
@@ -209,9 +248,7 @@ export default {
 						type: "success",
 					});
 
-					this.$store.dispatch("getListDipo");
 					this.$store.dispatch("getListSarana");
-					this.$store.dispatch("getListJalur");
 				})
 				.catch((e) => {
 					if (e.response.status == 422) {
@@ -243,9 +280,7 @@ export default {
 						type: "success",
 					});
 
-					this.$store.dispatch("getListDipo");
 					this.$store.dispatch("getListSarana");
-					this.$store.dispatch("getListJalur");
 				})
 				.catch((e) => {
 					if (e.response.status == 422) {

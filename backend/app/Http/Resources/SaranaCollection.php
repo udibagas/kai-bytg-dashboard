@@ -18,7 +18,8 @@ class SaranaCollection extends ResourceCollection
             'data' => $this->collection->map(function ($item) {
                 return array_merge($item->toArray(), [
                     'dipo' => $item->dipo->nama,
-                    'jenis_sarana' => $item->jenisSarana->nama
+                    'jenis_sarana' => $item->jenisSarana->nama,
+                    'bogie' => $item->bogie ? $item->bogie->kode : ''
                 ]);
             })
         ];

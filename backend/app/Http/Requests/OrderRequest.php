@@ -30,6 +30,9 @@ class OrderRequest extends FormRequest
             'jenis_sarana_id' => 'required',
             'dipo_id' => 'required',
             'jenis_pekerjaan_id' => 'required',
+            'bogie_id' => 'required',
+            'mulai_dinas' => 'date',
+            'posisi' => 'max:255'
         ];
     }
 
@@ -41,7 +44,10 @@ class OrderRequest extends FormRequest
             'sarana_id' => 'Sarana',
             'jenis_sarana_id' => 'Jenis Sarana',
             'dipo_id' => 'Dipo',
-            'jenis_pekerjaan_id' => 'Jenis Pekerjaan'
+            'jenis_pekerjaan_id' => 'Jenis Pekerjaan',
+            'bogie_id' => 'Jenis Bogie',
+            'mulai_dinas' => 'Mulai Dinas',
+            'posisi' => 'Posisi'
         ];
     }
 }

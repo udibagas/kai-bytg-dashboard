@@ -26,7 +26,9 @@ class Order extends Model
         'user_id',
         'keterangan',
         'by_pa_akhir',
-        'tgl_pa_akhir'
+        'tgl_pa_akhir',
+        'mulai_dinas',
+        'bogie_id'
     ];
 
     protected $appends = ['status_label', 'status_type'];
@@ -91,6 +93,11 @@ class Order extends Model
     public function jenisPekerjaan()
     {
         return $this->belongsTo(JenisPekerjaan::class);
+    }
+
+    public function bogie()
+    {
+        return $this->belongsTo(Bogie::class);
     }
 
     public function scopeChart($q)

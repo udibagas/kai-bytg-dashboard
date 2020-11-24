@@ -20,6 +20,7 @@ class OrderCollection extends ResourceCollection
                     'nomor_sarana' => $item->sarana ? $item->sarana->nomor : '',
                     'jenis_pekerjaan' => $item->jenisPekerjaan->kode,
                     'dipo' => $item->dipo ? $item->dipo->kode : '',
+                    'bogie' => $item->bogie ? $item->bogie->kode : '',
                     'jenis_sarana' => $item->jenisSarana->kode,
                 ]);
             })
