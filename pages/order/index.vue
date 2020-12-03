@@ -150,7 +150,7 @@
 			<el-table-column
 				prop="mulai_dinas"
 				label="Mulai Dinas"
-				min-width="120"
+				min-width="150"
 				align-header="center"
 				align="center"
 				sortable="custom"
@@ -173,7 +173,7 @@
 			<el-table-column
 				prop="bogie"
 				label="Jenis Bogie"
-				min-width="100"
+				min-width="150"
 				align-header="center"
 				align="center"
 				column-key="bogie_id"
