@@ -9,6 +9,7 @@
 			<tr>
 				<th>No</th>
 				<th>SARANA</th>
+				<th>JENIS BOGIE</th>
 				<th>ORDER</th>
 				<th>DIPO</th>
 				<th>TGL MASUK</th>
@@ -20,6 +21,7 @@
 			<tr v-for="(d, index) in tableData" :key="index">
 				<td>{{ index + 1 }}</td>
 				<td>{{ d.jenis_sarana }} {{ d.nomor_sarana }}</td>
+        <td>{{ d.bogie }}</td>
 				<td>{{ d.nomor }}</td>
 				<td>{{ d.dipo }}</td>
 				<td>{{ readableDate(d.tanggal_masuk) }}</td>
