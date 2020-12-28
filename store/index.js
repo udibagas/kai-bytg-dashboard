@@ -5,7 +5,7 @@ export const state = () => ({
   listJenisSarana: [],
   listJenisPekerjaan: [],
   listBogie: [],
-  listJenisDetailPekerjaan: [],
+  listItemPekerjaan: [],
   listBulan: "-,Januari,Februari,Maret,April,Mei,Juni,Juli,Agustus,September,Oktober,November,Desember".split(
     ","
   ),
@@ -74,8 +74,8 @@ export const mutations = {
     })
   },
 
-  setListJenisDetailPekerjaan(state, data) {
-    state.listJenisDetailPekerjaan = data;
+  setItemPekerjaan(state, data) {
+    state.listItemPekerjaan = data;
   },
 
   setListSarana(state, data) {
@@ -136,7 +136,7 @@ export const actions = {
     let {
       data
     } = await this.$axios.get('/api/jenisDetailPekerjaan')
-    commit('setListJenisDetailPekerjaan', data)
+    commit('setItemPekerjaan', data)
   },
 
   async getListSarana({

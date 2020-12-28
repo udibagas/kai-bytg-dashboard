@@ -183,6 +183,19 @@
 				</div>
 			</el-form-item>
 
+      <el-form-item
+				label="Posisi"
+				:class="formError.posisi ? 'is-error' : ''"
+			>
+				<el-input
+					v-model="formModel.posisi"
+					placeholder="Posisi"
+				></el-input>
+				<div class="el-form-item__error" v-if="formError.posisi">
+					{{ formError.posisi.join(", ") }}
+				</div>
+			</el-form-item>
+
 			<el-form-item
 				label="Keterangan"
 				:class="formError.keterangan ? 'is-error' : ''"

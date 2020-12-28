@@ -10,13 +10,16 @@ class OrderProgress extends Model
     protected $fillable = [
         'order_id',
         'user_id',
-        'jenis_detail_pekerjaan_id',
         'prosentase_pekerjaan',
         'keterangan',
-        'status'
+        'status',
+        'posisi',
+        'checklist',
     ];
 
-    protected $with = ['jenisDetailPekerjaan', 'user'];
+    protected $casts = ['checklist' => 'json'];
+
+    protected $with = ['user'];
 
     public function getCreatedAtAttribute($value)
     {
@@ -36,10 +39,5 @@ class OrderProgress extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function jenisDetailPekerjaan()
-    {
-        return $this->belongsTo(JenisDetailPekerjaan::class);
     }
 }

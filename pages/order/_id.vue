@@ -42,6 +42,10 @@
 						<td class="pr-4">{{ readableDate(order.tanggal_keluar) }}</td>
 					</tr>
 					<tr>
+						<td class="td-label pl-3">Posisi</td>
+						<td class="pr-4">{{ order.posisi }}</td>
+					</tr>
+					<tr>
 						<td class="td-label pl-3">Keterangan</td>
 						<td class="pr-4">{{ order.keterangan }}</td>
 					</tr>
@@ -66,7 +70,7 @@
 		</el-card>
 		<el-tabs type="card" class="flex-grow-1">
 			<el-tab-pane label="Order Progress">
-				<OrderProgress :detail="order.order_detail" @reload-data="getData()" />
+				<OrderProgress v-if="order.order_progress.length > 0" :progress="order.order_progress[0].checklist" @reload-data="getData()" />
 			</el-tab-pane>
 			<el-tab-pane label="Update Order">
 				<OrderUpdate :order="order" @reload-data="getData()" />
@@ -97,7 +101,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .el-card__header {
 	color: #0e5ca9;
 	font-weight: bold;
@@ -106,5 +110,9 @@ export default {
 .td-label {
 	color: #777;
 	max-width: 120px;
+}
+
+.el-table td {
+  padding: 2px 0;
 }
 </style>

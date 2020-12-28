@@ -12,8 +12,11 @@ class OrderDetail extends Model
         'user_id',
         'jenis_detail_pekerjaan_id',
         'prosentase_pekerjaan',
-        'keterangan'
+        'keterangan',
+        'check'
     ];
+
+    protected $casts = ['check' => 'boolean'];
 
     protected $with = ['jenisDetailPekerjaan', 'user'];
 

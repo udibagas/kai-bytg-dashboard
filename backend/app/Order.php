@@ -28,7 +28,8 @@ class Order extends Model
         'by_pa_akhir',
         'tgl_pa_akhir',
         'mulai_dinas',
-        'bogie_id'
+        'bogie_id',
+        'posisi'
     ];
 
     protected $appends = ['status_label', 'status_type'];

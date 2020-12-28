@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderProgressRequest;
-use App\JenisDetailPekerjaan;
 use App\Order;
 use App\OrderProgress;
 use Illuminate\Http\Request;
@@ -35,76 +34,31 @@ class OrderProgressController extends Controller
      */
     public function store(OrderProgressRequest $request)
     {
-        if (is_numeric($request->jenis_detail_pekerjaan_id)) {
-            $jenisDetailPekerjaan = JenisDetailPekerjaan::find($request->jenis_detail_pekerjaan_id);
-
-            // kemungkinan ngisi nomor doank
-            if (!$jenisDetailPekerjaan) {
-                return response(['message' => 'Jenis detail pekerjaan tidak ditemukan'], 500);
-            }
-        } else {
-            $jenisDetailPekerjaan = JenisDetailPekerjaan::firstOrCreate(
-                ['nama' => $request->jenis_detail_pekerjaan_id],
-                ['nama' => $request->jenis_detail_pekerjaan_id]
-            );
-        }
-
-        $data = array_merge($request->all(), [
-            'user_id' => auth()->user()->id,
-            'jenis_detail_pekerjaan_id' => $jenisDetailPekerjaan->id // update dengan data yg baru
-        ]);
-
+        $data = array_merge($request->all(), ['user_id' => auth()->user()->id,]);
         $orderProgress = OrderProgress::create($data);
         $order = $orderProgress->order;
 
-        $order->orderDetail()
-            ->updateOrCreate(
-                ['jenis_detail_pekerjaan_id' => $request->jenis_detail_pekerjaan_id],
-                $data
-            );
-
-        $prosentase = $order->orderDetail()->pluck('prosentase_pekerjaan')->avg();
+        foreach ($request->checklist as $c) {
+            $order->orderDetail()->updateOrCreate(['jenis_detail_pekerjaan_id' => $c['id']], [
+                'jenis_detail_pekerjaan_id' => $c['id'],
+                'urutan' => $c['urutan'],
+                'nama' => $c['nama'],
+                'bobot' => $c['bobot'],
+                'check' => $c['check']
+            ]);
+        }
 
         $order->update([
-            // 'status' => $request->status,
             'tanggal_keluar' => $request->tanggal_keluar,
-            'prosentase_pekerjaan' => $prosentase,
-            'status' => $prosentase < 100 ? Order::STATUS_DALAM_PENGERJAAN : Order::STATUS_SELESAI
+            'prosentase_pekerjaan' => $request->prosentase_pekerjaan,
+            'status' => $request->prosentase_pekerjaan < 100 ? Order::STATUS_DALAM_PENGERJAAN : Order::STATUS_SELESAI,
+            'keterangan' => $request->keterangan,
+            'posisi' => $request->posisi,
         ]);
 
         return [
             'message' => 'Data telah disimpan',
             'data' => $orderProgress
         ];
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\OrderProgress  $orderProgress
-     * @return \Illuminate\Http\Response
-     */
-    public function update(OrderProgressRequest $request, OrderProgress $orderProgress)
-    {
-        $orderProgress->update($request->all());
-
-        return [
-            'message' => 'Data telah disimpan',
-            'data' => $orderProgress
-        ];
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\OrderProgress  $orderProgress
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(OrderProgress $orderProgress)
-    {
-        $orderProgress->delete();
-
-        return ['message' => 'Data telah dihapus'];
     }
 }

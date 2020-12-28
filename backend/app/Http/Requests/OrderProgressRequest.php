@@ -25,10 +25,11 @@ class OrderProgressRequest extends FormRequest
     {
         return [
             'order_id' => 'required',
-            'jenis_detail_pekerjaan_id' => 'required',
             'prosentase_pekerjaan' => 'required|numeric',
             'status' => 'required',
-            'tanggal_keluar' => 'required_if:status,20'
+            'tanggal_keluar' => 'required_if:status,20',
+            'posisi' => 'max:255',
+            'checklist' => 'required'
         ];
     }
 
@@ -36,9 +37,10 @@ class OrderProgressRequest extends FormRequest
     {
         return [
             'order_id' => 'Nomor Order',
-            'jenis_detail_pekerjaan_id' => 'Jenis detail pekerjaan',
             'prosentase_pekerjaan' => 'Prosentase pekerjaan',
-            'status' => 'Status'
+            'status' => 'Status',
+            'posisi' => 'Posisi',
+            'checklist' => 'Checklist'
         ];
     }
 

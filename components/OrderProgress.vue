@@ -3,24 +3,24 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th style="width: 170px">Update Terakhir</th>
+          <th>#</th>
 					<th style="min-width: 150px">Pekerjaan</th>
-					<th>Keterangan</th>
-					<th style="min-width: 150px">Prosentase</th>
-					<th></th>
+					<th class="text-center">Prosentase</th>
+					<!-- <th>Keterangan</th> -->
+					<th class="text-center">Check</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="p in detail" :key="p.id">
-					<td>{{ p.created_at }}</td>
-					<td>
-						{{ p.jenis_detail_pekerjaan ? p.jenis_detail_pekerjaan.nama : "" }}
-					</td>
-					<td>{{ p.keterangan }}</td>
-					<td>
-						<el-progress :percentage="p.prosentase_pekerjaan"></el-progress>
-					</td>
-					<td>
+				<tr v-for="p in progress" :key="p.id">
+          <td>{{p.urutan}}</td>
+					<td>{{ p.nama}}</td>
+					<td class="text-center"> {{ p.bobot}}% </td>
+					<!-- <td>{{ p.keterangan }}</td> -->
+					<td class="text-center">
+            <i v-if="p.check" class="el-icon-check text-success"></i>
+            <i v-else class="el-icon-close text-danger"></i>
+          </td>
+					<!-- <td>
 						<el-dropdown>
 							<span class="el-dropdown-link">
 								<i class="el-icon-more"></i>
@@ -43,18 +43,9 @@
 								>
 							</el-dropdown-menu>
 						</el-dropdown>
-					</td>
+					</td> -->
 				</tr>
 			</tbody>
-			<tfoot>
-				<tr class="bg-warning">
-					<th colspan="3">TOTAL</th>
-					<th>
-						<el-progress :percentage="total"></el-progress>
-					</th>
-					<th></th>
-				</tr>
-			</tfoot>
 		</table>
 
 		<OrderProgressForm
@@ -68,22 +59,7 @@
 
 <script>
 export default {
-	props: ["detail"],
-	computed: {
-		total() {
-			if (this.detail.length == 0) {
-				return 0;
-			}
-
-			let total =
-				this.detail.reduce(
-					(total, current) => total + current.prosentase_pekerjaan,
-					0
-				) / this.detail.length;
-
-			return Math.round(total);
-		},
-	},
+	props: ["progress"],
 	data() {
 		return {
 			selectedData: {},

@@ -13,10 +13,10 @@ export default {
 	components: { Chart },
 	computed: {
 		prosentaseRealisasi() {
-			return ((this.totalRealisasi / this.totalProgram) * 100).toFixed(0);
+			return ((this.totalRealisasi / this.totalProgram) * 100).toFixed(1);
 		},
 		prosentaseProses() {
-			return ((this.totalProses / this.totalProgram) * 100).toFixed(0);
+			return ((this.totalProses / this.totalProgram) * 100).toFixed(1);
 		},
 	},
 	data() {

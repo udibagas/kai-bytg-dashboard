@@ -1,22 +1,41 @@
 <template>
 	<div>
 		<el-card header="Update Progress" class="mb-3">
-      <el-table :data="formModel.checklist" stripe>
-        <el-table-column label="#" prop="urutan" width="50"></el-table-column>
-        <el-table-column label="Item Pekerjaan" prop="nama"></el-table-column>
-        <el-table-column label="Prosentase" align="center" header-align="center">
-          <template slot-scope="scope">{{scope.row.bobot}}%</template>
-        </el-table-column>
-        <el-table-column label="Checklist" align="center" header-align="center" width="100">
-          <template slot-scope="scope">
-            <el-checkbox v-model="scope.row.check"></el-checkbox>
-          </template>
-        </el-table-column>
-      </el-table>
-
-      <br>
-
 			<el-form label-position="left" label-width="200px">
+				<el-form-item
+					label="Pekerjaan"
+					:class="formError.jenis_detail_pekerjaan_id ? 'is-error' : ''"
+				>
+					<el-select
+						v-model="formModel.jenis_detail_pekerjaan_id"
+						@change="getPercentage"
+						style="width: 100%"
+						placeholder="Pilih Pekerjaan"
+						filterable
+						default-first-option
+					>
+						<el-option
+							v-for="p in listJenisDetailPekerjaan"
+							:key="p.id"
+							:value="p.id"
+							:label="p.nama"
+						>
+							<!-- <span style="float: left">{{ p.nama }}</span>
+							<i
+								class="el-icon-circle-close"
+								style="float: right; line-height: 30px"
+								@click.prevent="hideJenisDetailPekerjaan(p.id, p.nama)"
+							></i> -->
+						</el-option>
+					</el-select>
+					<div
+						class="el-form-item__error"
+						v-if="formError.jenis_detail_pekerjaan_id"
+					>
+						{{ formError.jenis_detail_pekerjaan_id.join(", ") }}
+					</div>
+				</el-form-item>
+
 				<el-form-item
 					label="Prosentase Pekerjaan"
 					:class="formError.prosentase_pekerjaan ? 'is-error' : ''"
@@ -26,7 +45,6 @@
 							class="flex-grow-1 mr-3"
 							v-model="formModel.prosentase_pekerjaan"
 							:step="5"
-              disabled
 						></el-slider>
 						<div>{{ formModel.prosentase_pekerjaan }}%</div>
 					</div>
@@ -36,10 +54,6 @@
 					>
 						{{ formError.prosentase_pekerjaan.join(", ") }}
 					</div>
-				</el-form-item>
-
-        <el-form-item label="Posisi">
-					<el-input placeholder="Posisi" v-model="formModel.posisi"></el-input>
 				</el-form-item>
 
 				<el-form-item label="Keterangan">
@@ -94,8 +108,20 @@
 				</el-form-item>
 			</el-form>
 		</el-card>
-
 		<el-card header="Riwayat Order">
+			<!-- <el-timeline>
+				<el-timeline-item
+					v-for="p in order.order_progress"
+					:key="p.id"
+					:timestamp="`${p.created_at} / ${p.user.name}`"
+					placement="top"
+				>
+					<strong>{{p.jenis_detail_pekerjaan.nama}}</strong>
+					<el-progress :percentage="p.prosentase_pekerjaan"></el-progress>
+					<br />
+					<p>{{p.keterangan}}</p>
+				</el-timeline-item>
+			</el-timeline>-->
 			<ul class="list-unstyled">
 				<li class="media mb-4" v-for="p in order.order_progress" :key="p.id">
 					<el-avatar
@@ -109,11 +135,13 @@
 							<br />
 							{{ p.created_at }}
 						</div>
+						<h5 class="mt-0 mb-1">
+							{{
+								p.jenis_detail_pekerjaan ? p.jenis_detail_pekerjaan.nama : ""
+							}}
+						</h5>
 						<el-progress :percentage="p.prosentase_pekerjaan"></el-progress>
-            <div class="mt-3 mb-3">
-              Posisi : {{p.posisi}} <br>
-              <span v-html="p.keterangan"></span>
-            </div>
+						<p class="mt-3 mb-3" v-html="p.keterangan"></p>
 					</div>
 				</li>
 			</ul>
@@ -125,51 +153,38 @@
 import { mapState } from "vuex";
 
 export default {
-  props: ["order"],
-
-  watch: {
-    'formModel.checklist': {
-      deep: true,
-      handler(v) {
-        this.formModel.prosentase_pekerjaan = v.filter(c => c.check).reduce((total, item) => total + item.bobot, 0);
-        this.$forceUpdate();
-      }
-    }
-  },
-
+	props: ["order"],
 	computed: {
-		...mapState(["listItemPekerjaan"]),
-  },
-
+		...mapState(["listJenisDetailPekerjaan"]),
+	},
 	mounted() {
 		this.reset();
-  },
-
+	},
 	data() {
 		return {
 			formModel: {},
 			formError: {},
 		};
-  },
-
+	},
 	methods: {
+		getPercentage() {
+			let detail = this.order.order_detail.find(
+				(d) =>
+					d.jenis_detail_pekerjaan_id ==
+					this.formModel.jenis_detail_pekerjaan_id
+			);
+
+			if (detail) {
+				this.formModel.prosentase_pekerjaan = detail.prosentase_pekerjaan;
+			}
+		},
 
 		reset() {
-      let checklist = this.$store.state.listItemPekerjaan.map(i => {
-        const {id, nama, bobot, urutan } = i;
-        return { id, nama, bobot, check: false }
-      });
-
-      if (this.order.order_progress && this.order.order_progress[0].checklist != null) {
-        checklist = this.order.order_progress[0].checklist
-      };
-
 			this.formModel = {
 				order_id: this.order.id,
-				prosentase_pekerjaan: this.order.prosentase_pekerjaan,
+				prosentase_pekerjaan: 0,
 				status: this.order.status,
-        tanggal_keluar: this.order.tanggal_keluar,
-        checklist
+				tanggal_keluar: this.order.tanggal_keluar,
 			};
 		},
 
@@ -180,10 +195,12 @@ export default {
 					this.$message({
 						message: r.data.message,
 						type: "success",
-          });
-
+					});
 					this.$emit("reload-data");
-					this.reset();
+					this.$store.dispatch("getListJenisDetailPekerjaan");
+					this.$nextTick(() => {
+						this.reset();
+					});
 					this.formError = {};
 				})
 				.catch((e) => {
@@ -197,6 +214,22 @@ export default {
 					});
 				});
 		},
+
+		hideJenisDetailPekerjaan(id, nama) {
+			this.$confirm("Anda yakin akan menghapus item ini?", "Perhatian")
+				.then(() => {
+					this.$axios
+						.put(`/api/jenisDetailPekerjaan/${id}`, { hidden: 1, nama: nama })
+						.then((r) => {
+							this.formModel.jenis_detail_pekerjaan_id = "";
+							this.$store.dispatch("getListJenisDetailPekerjaan");
+						});
+				})
+				.catch(() => console.log(e));
+		},
 	},
 };
 </script>
+
+<style>
+</style>
