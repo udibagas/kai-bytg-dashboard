@@ -160,7 +160,7 @@ export default {
         return { id, nama, bobot, urutan, check: false }
       });
 
-      if (this.order.order_progress && this.order.order_progress[0].checklist != null) {
+      if (this.order.order_progress.length > 0) {
         checklist = this.order.order_progress[0].checklist
       };
 
