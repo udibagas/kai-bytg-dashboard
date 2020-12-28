@@ -38,15 +38,16 @@ class OrderProgressController extends Controller
         $orderProgress = OrderProgress::create($data);
         $order = $orderProgress->order;
 
-        foreach ($request->checklist as $c) {
-            $order->orderDetail()->updateOrCreate(['jenis_detail_pekerjaan_id' => $c['id']], [
-                'jenis_detail_pekerjaan_id' => $c['id'],
-                'urutan' => $c['urutan'],
-                'nama' => $c['nama'],
-                'bobot' => $c['bobot'],
-                'check' => $c['check']
-            ]);
-        }
+        // foreach ($request->checklist as $c) {
+        //     $order->orderDetail()->updateOrCreate(['jenis_detail_pekerjaan_id' => $c['id']], [
+        //         'jenis_detail_pekerjaan_id' => $c['id'],
+        //         'urutan' => $c['urutan'],
+        //         'nama' => $c['nama'],
+        //         'bobot' => $c['bobot'],
+        //         'check' => $c['check'],
+        //         'user_id' => auth()->user()->id
+        //     ]);
+        // }
 
         $order->update([
             'tanggal_keluar' => $request->tanggal_keluar,
