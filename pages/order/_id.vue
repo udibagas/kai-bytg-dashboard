@@ -111,8 +111,4 @@ export default {
 	color: #777;
 	max-width: 120px;
 }
-
-.el-table td {
-  padding: 2px 0;
-}
 </style>

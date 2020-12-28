@@ -126,3 +126,9 @@ export default {
 	},
 };
 </script>
+
+<style lang="css">
+.el-table td {
+  padding: 5px 0;
+}
+</style>
