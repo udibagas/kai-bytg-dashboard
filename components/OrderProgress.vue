@@ -11,7 +11,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="p in progress" :key="p.id">
+				<tr v-for="p in progress[0]" :key="p.id">
           <td>{{p.urutan}}</td>
 					<td>{{ p.nama}}</td>
 					<td class="text-center"> {{ p.bobot}}% </td>
