@@ -157,7 +157,7 @@ export default {
 		reset() {
       let checklist = this.$store.state.listItemPekerjaan.map(i => {
         const {id, nama, bobot, urutan } = i;
-        return { id, nama, bobot, check: false }
+        return { id, nama, bobot, urutan, check: false }
       });
 
       if (this.order.order_progress && this.order.order_progress[0].checklist != null) {
