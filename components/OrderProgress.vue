@@ -11,7 +11,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="p in progress[0]" :key="p.id">
+				<tr v-for="p in progress[0].checklist" :key="p.id">
           <td>{{p.urutan}}</td>
 					<td>{{ p.nama}}</td>
 					<td class="text-center"> {{ p.bobot}}% </td>
@@ -48,12 +48,12 @@
 			</tbody>
 		</table>
 
-		<OrderProgressForm
+		<!-- <OrderProgressForm
 			:data="selectedData"
 			:show="showForm"
 			@close-form="showForm = false"
 			@reload-data="$emit('reload-data')"
-		/>
+		/> -->
 	</div>
 </template>
 

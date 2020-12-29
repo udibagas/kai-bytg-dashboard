@@ -70,7 +70,7 @@
 		</el-card>
 		<el-tabs type="card" class="flex-grow-1">
 			<el-tab-pane label="Order Progress">
-				<OrderProgress v-if="order.order_progress.length > 0" :progress="order.order_progress" @reload-data="getData()" />
+				<OrderProgress v-if="order.order_progress.length > 0 && order.order_progress[0].checklist !== null" :progress="order.order_progress" @reload-data="getData()" />
 			</el-tab-pane>
 			<el-tab-pane label="Update Order">
 				<OrderUpdate :order="order" @reload-data="getData()" />
