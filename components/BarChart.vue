@@ -1,7 +1,5 @@
 <template>
-	<div>
-		<Chart :options="chartOptions" />
-	</div>
+	<Chart :options="chartOptions" />
 </template>
 
 <script>
@@ -17,8 +15,9 @@ export default {
 		},
 		prosentaseProses() {
 			return ((this.totalProses / this.totalProgram) * 100).toFixed(1);
-		},
+		}
 	},
+
 	data() {
 		return {
 			totalProgram: 0,
@@ -27,34 +26,34 @@ export default {
 			chartOptions: {
 				chart: {
 					type: "column",
-					height: "440px",
+					height: "440px"
 				},
 				title: {
-					text: this.title,
+					text: this.title
 				},
 				subtitle: {
 					text: moment().format("DD MMM YYYY"),
 					style: {
-						fontSize: "15px",
-					},
+						fontSize: "15px"
+					}
 				},
 				legend: {
 					margin: 30,
 					itemStyle: {
 						color: "blue",
 						fontSize: "18px",
-						fontWeight: "normal",
-					},
+						fontWeight: "normal"
+					}
 				},
 				xAxis: {
 					categories: [],
-					crosshair: true,
+					crosshair: true
 				},
 				yAxis: {
 					min: 0,
 					title: {
-						text: "Jumlah",
-					},
+						text: "Jumlah"
+					}
 				},
 				tooltip: {
 					headerFormat:
@@ -64,33 +63,33 @@ export default {
 						'<td style="padding:0"><b>{point.y}</b></td></tr>',
 					footerFormat: "</table>",
 					shared: true,
-					useHTML: true,
+					useHTML: true
 				},
 				plotOptions: {
 					column: {
 						pointPadding: 0,
 						borderWidth: 0,
 						dataLabels: {
-							enabled: true,
-						},
-					},
+							enabled: true
+						}
+					}
 				},
 				credits: {
-					enabled: false,
+					enabled: false
 				},
-				series: [],
-			},
+				series: []
+			}
 		};
 	},
 	methods: {
 		monthlyReport() {
 			const params = {
 				tahun: this.tahun,
-				bulan: this.bulan,
+				bulan: this.bulan
 			};
 
-			this.$axios.get("/api/monthlyReport", { params }).then((r) => {
-				this.chartOptions.xAxis.categories = r.data.map((d) => {
+			this.$axios.get("/api/monthlyReport", { params }).then(r => {
+				this.chartOptions.xAxis.categories = r.data.map(d => {
 					return d.jenis_sarana;
 				});
 
@@ -100,16 +99,16 @@ export default {
 
 		annualReport() {
 			const params = { tahun: this.tahun };
-			this.$axios.get("/api/annualReport", { params }).then((r) => {
-				this.chartOptions.xAxis.categories = r.data.map((d) => d.bulan);
+			this.$axios.get("/api/annualReport", { params }).then(r => {
+				this.chartOptions.xAxis.categories = r.data.map(d => d.bulan);
 				this.updateSeries(r.data);
 			});
 		},
 
 		updateSeries(data) {
-			const program = data.map((d) => Number(d.program));
-			const realisasi = data.map((d) => Number(d.realisasi));
-			const proses = data.map((d) => Number(d.proses));
+			const program = data.map(d => Number(d.program));
+			const realisasi = data.map(d => Number(d.realisasi));
+			const proses = data.map(d => Number(d.proses));
 
 			this.totalProgram = program.reduce((prev, curr) => prev + curr);
 			this.totalRealisasi = realisasi.reduce((prev, curr) => prev + curr);
@@ -119,18 +118,18 @@ export default {
 				{
 					name: `Program (${this.totalProgram})`,
 					color: "#79acee",
-					data: program,
+					data: program
 				},
 				{
 					name: `Realisasi (${this.totalRealisasi} / ${this.prosentaseRealisasi}%)`,
 					color: "#5bfe79",
-					data: realisasi,
+					data: realisasi
 				},
 				{
 					name: `Proses (${this.totalProses} / ${this.prosentaseProses}%)`,
 					color: "#e55b00",
-					data: proses,
-				},
+					data: proses
+				}
 			];
 		},
 
@@ -141,8 +140,15 @@ export default {
 				this.annualReport();
 			}
 		},
+
+		getTime() {
+			this.$axios.$get("api/time").then(time => {
+				this.chartOptions.subtitle.text = moment(time).format("DD MMM YYYY");
+			});
+		}
 	},
 	mounted() {
+		this.getTime();
 		this.getData();
 	},
 	watch: {
@@ -154,7 +160,7 @@ export default {
 		},
 		title(v) {
 			this.chartOptions.title.text = v;
-		},
-	},
+		}
+	}
 };
 </script>

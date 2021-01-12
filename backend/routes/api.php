@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,4 +44,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     Route::get('monthlyReport', 'ReportController@monthlyReport');
     Route::get('annualReport', 'ReportController@annualReport');
+});
+
+Route::get('time', function () {
+    return Carbon::now();
 });
