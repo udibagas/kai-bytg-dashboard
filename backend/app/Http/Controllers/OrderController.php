@@ -52,7 +52,7 @@ class OrderController extends Controller
         })->when($request->tahun, function ($q) use ($request) {
             $q->where(function ($q) use ($request) {
                 $q->whereYear('tanggal_masuk', $request->tahun)
-                    ->orWhereYear('tanggal_masuk', $request->tahun);
+                    ->orWhereYear('tanggal_keluar', $request->tahun);
             });
         })->when($request->bulan, function ($q) use ($request) {
             $q->where(function ($q) use ($request) {
