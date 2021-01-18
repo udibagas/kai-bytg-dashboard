@@ -80,14 +80,14 @@ import { mapState } from "vuex";
 
 export default {
 	computed: {
-		...mapState(["listJenisPekerjaan", "listBulan"]),
+		...mapState(["listJenisPekerjaan", "listBulan", "time"])
 	},
 	data() {
 		return {
 			showSlideShow: true,
-			bulan: new Date().getMonth() + 1,
-			tahun: new Date().getFullYear(),
+			bulan: moment(this.$store.state.time).format("M"),
+			tahun: moment(this.$store.state.time).format("YYYY")
 		};
-	},
+	}
 };
 </script>

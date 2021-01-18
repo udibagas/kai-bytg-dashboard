@@ -75,31 +75,35 @@
 <script>
 export default {
 	middleware: ["auth"],
+
 	data() {
 		return {
 			menus: [],
 			collapse: true,
 			showProfileDialog: false,
-			user: JSON.parse(JSON.stringify(this.$auth.user)),
+			user: JSON.parse(JSON.stringify(this.$auth.user))
 		};
 	},
+
 	methods: {
 		getMenu() {
-			this.$axios.get("/api/menu").then((r) => (this.menus = r.data));
+			this.$axios.get("/api/menu").then(r => (this.menus = r.data));
 		},
 		logout() {
 			this.$auth.logout();
 			this.$router.push("/login");
-		},
+		}
 	},
 	created() {
 		this.getMenu();
+		this.$store.dispatch("getTime");
+		console.log(this.$store.state.time);
 		this.$store.dispatch("getListJenisSarana");
 		this.$store.dispatch("getListJenisPekerjaan");
 		this.$store.dispatch("getListDipo");
 		this.$store.dispatch("getListBogie");
 		this.$store.dispatch("getListJenisDetailPekerjaan");
-	},
+	}
 };
 </script>
 

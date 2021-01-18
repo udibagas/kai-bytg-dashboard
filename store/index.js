@@ -1,4 +1,5 @@
 export const state = () => ({
+  time: new Date(),
   listDipo: [],
   listJalur: [],
   listSarana: [],
@@ -82,69 +83,50 @@ export const mutations = {
     state.listSarana = data;
   },
 
+  setTime(state, data) {
+    state.time = data;
+  }
+
 }
 
 export const actions = {
-  async getListDipo({
-    commit
-  }) {
-    let {
-      data
-    } = await this.$axios.get('/api/dipo')
+  async getListDipo({ commit }) {
+    let { data } = await this.$axios.get('/api/dipo')
     commit('setListDipo', data)
   },
 
-  async getListJalur({
-    commit
-  }) {
-    let {
-      data
-    } = await this.$axios.get('/api/jalur')
+  async getListJalur({ commit }) {
+    let { data } = await this.$axios.get('/api/jalur')
     commit('setListJalur', data)
   },
 
-  async getListJenisSarana({
-    commit
-  }) {
-    let {
-      data
-    } = await this.$axios.get('/api/jenisSarana')
+  async getListJenisSarana({ commit }) {
+    let { data } = await this.$axios.get('/api/jenisSarana')
     commit('setListJenisSarana', data)
   },
 
-  async getListJenisPekerjaan({
-    commit
-  }) {
-    let {
-      data
-    } = await this.$axios.get('/api/jenisPekerjaan')
+  async getListJenisPekerjaan({ commit }) {
+    let { data } = await this.$axios.get('/api/jenisPekerjaan')
     commit('setListJenisPekerjaan', data)
   },
 
-  async getListBogie({
-    commit
-  }) {
-    let {
-      data
-    } = await this.$axios.get('/api/bogie')
+  async getListBogie({ commit }) {
+    let { data } = await this.$axios.get('/api/bogie')
     commit('setListBogie', data)
   },
 
-  async getListJenisDetailPekerjaan({
-    commit
-  }) {
-    let {
-      data
-    } = await this.$axios.get('/api/jenisDetailPekerjaan')
+  async getListJenisDetailPekerjaan({ commit }) {
+    let { data } = await this.$axios.get('/api/jenisDetailPekerjaan')
     commit('setItemPekerjaan', data)
   },
 
-  async getListSarana({
-    commit
-  }) {
-    let {
-      data
-    } = await this.$axios.get('/api/sarana/getList')
+  async getListSarana({ commit }) {
+    let { data } = await this.$axios.get('/api/sarana/getList')
     commit('setListSarana', data)
   },
+
+  async getTime({ commit }) {
+    const time = await this.$axios.$get('/api/time');
+    commit('setTime', time);
+  }
 }

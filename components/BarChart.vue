@@ -5,6 +5,7 @@
 <script>
 import { Chart } from "highcharts-vue";
 import moment from "moment";
+import { mapState } from "vuex";
 
 export default {
 	props: ["title", "tahun", "bulan"],
@@ -15,7 +16,8 @@ export default {
 		},
 		prosentaseProses() {
 			return ((this.totalProses / this.totalProgram) * 100).toFixed(1);
-		}
+		},
+		...mapState(["time"])
 	},
 
 	data() {
@@ -32,7 +34,7 @@ export default {
 					text: this.title
 				},
 				subtitle: {
-					text: moment().format("DD MMM YYYY"),
+					text: moment(this.$store.state.time).format("DD MMM YYYY"),
 					style: {
 						fontSize: "15px"
 					}
@@ -81,6 +83,7 @@ export default {
 			}
 		};
 	},
+
 	methods: {
 		monthlyReport() {
 			const params = {
@@ -139,18 +142,13 @@ export default {
 			} else {
 				this.annualReport();
 			}
-		},
-
-		getTime() {
-			this.$axios.$get("api/time").then(time => {
-				this.chartOptions.subtitle.text = moment(time).format("DD MMM YYYY");
-			});
 		}
 	},
+
 	mounted() {
-		this.getTime();
 		this.getData();
 	},
+
 	watch: {
 		tahun(v) {
 			this.getData();
